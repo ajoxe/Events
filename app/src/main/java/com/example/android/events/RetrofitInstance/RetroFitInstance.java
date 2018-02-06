@@ -21,17 +21,13 @@ public class RetroFitInstance {
     }
 
 
-    public static RetroFitInstance getInstance() { //if retrofit instance is available - use it. if not , create a another retrofit builder.
-
-        if (instance != null) {
+    public static RetroFitInstance getInstance() {
+        if (instance == null) {
             instance = new RetroFitInstance();
         }
         return instance;
     }
 
-    public static void setInstance(RetroFitInstance instance) { // setting the same instance of the retrofit
-        RetroFitInstance.instance = instance;
-    }
 
 
     Retrofit getRetrofit() { // getting the retofit builder to use in other methods
@@ -43,7 +39,7 @@ public class RetroFitInstance {
 
     }
 
-    TicketMasterService getApi() {
+    public TicketMasterService getApi() {
        return getRetrofit().create(TicketMasterService.class);
     }
 
