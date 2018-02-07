@@ -15,7 +15,7 @@ import retrofit2.http.Query;
 
 public interface TicketMasterService {
     @GET("discovery/v2/events.json?countryCode=US&apikey=ilPwBsnGTyoWc7GwITtkyAPPNMUOtqiS")
-    Call<EventWrapper> getEventResponse(@Query("US") String countryCode);
+    Call<EventWrapper> getEventResponse(@Query("countryCode=US") String countryCode);
 
 
     @GET("/discovery/v2/events/{id}&apikey=ilPwBsnGTyoWc7GwITtkyAPPNMUOtqiS")
