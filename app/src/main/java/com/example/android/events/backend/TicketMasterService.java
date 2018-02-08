@@ -4,6 +4,7 @@ import com.example.android.events.model.EventWrapper;
 
 import java.util.List;
 
+import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
@@ -14,7 +15,7 @@ import retrofit2.http.Query;
 
 public interface TicketMasterService {
     @GET("discovery/v2/events.json?countryCode=US&apikey=ilPwBsnGTyoWc7GwITtkyAPPNMUOtqiS")
-    List<EventWrapper> getEventResponse(@Query("US") String countryCode);
+    Call<EventWrapper> getEventResponse(@Query("countryCode=US") String countryCode);
 
 
     @GET("/discovery/v2/events/{id}&apikey=ilPwBsnGTyoWc7GwITtkyAPPNMUOtqiS")
