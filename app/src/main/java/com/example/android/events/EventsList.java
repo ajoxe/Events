@@ -29,6 +29,7 @@ public class EventsList extends AppCompatActivity {
     String locale;
     String id;
     String pleaseNote;
+    public String TAG = "taggggg : ";
 
 
 
@@ -37,11 +38,13 @@ public class EventsList extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.list_events);
 
+    }
+
+    public void init(){
         Call<EventWrapper> getEventsDetails = RetroFitInstance.getInstance()
                 .getApi()
                 .getEventResponse("US");
         getEventsDetails.enqueue(new Callback<EventWrapper>() {
-            public String TAG = "taggggg : ";
 
             @Override
             public void onResponse(Call<EventWrapper> call, Response<EventWrapper> response) {
@@ -76,5 +79,6 @@ public class EventsList extends AppCompatActivity {
 
     }
 
-
 }
+
+
