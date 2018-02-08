@@ -13,7 +13,7 @@ import java.util.List;
 @Dao
 public interface EventsDao {
 
-        @Query("SELECT * FROM EventsRoomEntity")
+        @Query("SELECT * FROM events")
         List<EventsWithImagesEntity> getAll();
 
 }

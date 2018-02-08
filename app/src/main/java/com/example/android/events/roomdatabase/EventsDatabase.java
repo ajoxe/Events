@@ -8,7 +8,7 @@ import android.content.Context;
 /**
  * Created by amirahoxendine on 2/7/18.
  */
-@Database(entities = {EventsRoomEntity.class, ImageRoomEntity.class, VenueRoomEntity.class}, version = 1)
+@Database(entities = {EventsRoomEntity.class, ImageRoomEntity.class}, version = 1)
 public abstract class EventsDatabase extends RoomDatabase {
 
     private static EventsDatabase INSTANCE;
