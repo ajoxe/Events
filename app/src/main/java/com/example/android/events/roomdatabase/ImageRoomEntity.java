@@ -1,8 +1,6 @@
-package com.example.android.events.roomdatamodels;
+package com.example.android.events.roomdatabase;
 
 import android.arch.persistence.room.Entity;
-
-import com.example.android.events.model.Images;
 
 /**
  * Created by amirahoxendine on 2/6/18.
