@@ -1,5 +1,6 @@
 package com.example.android.events.model;
 
+
 public class Dates {
 
     private boolean spanMultipleDays;

@@ -1,5 +1,7 @@
 package com.example.android.events.model;
 
+
+
 import java.util.List;
 
 /**

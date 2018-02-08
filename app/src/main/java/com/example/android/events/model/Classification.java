@@ -1,5 +1,8 @@
 package com.example.android.events.model;
 
+
+
+
 /**
  * Created by melg on 2/4/18.
  */
