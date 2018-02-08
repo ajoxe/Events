@@ -1,5 +1,6 @@
 package com.example.android.events.model;
 
+
 public class Classification_Segment {
     private String name;
     private String id;

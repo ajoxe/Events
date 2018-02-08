@@ -1,22 +1,30 @@
 package com.example.android.events.model;
 
+
+
 import java.util.List;
 
 public class Events {
 
     private Seatmap seatmap;
+
     private List<Products> products;
+
     private List<PriceRanges> priceRanges;
     private String pleaseNote;
     private String info;
+
     private List<Classification> classifications;
+
     private Dates dates;
+
     private List<Images> images;
     private String locale;
     private String url;
     private String id;
     private String type;
     private String name;
+
     private VenueEmbedded _embedded;
 
 
