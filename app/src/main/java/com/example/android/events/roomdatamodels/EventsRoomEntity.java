@@ -1,4 +1,4 @@
-package com.example.android.events.model;
+package com.example.android.events.roomdatamodels;
 
 import android.arch.persistence.room.Embedded;
 import android.arch.persistence.room.Entity;
@@ -6,6 +6,13 @@ import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.Index;
 import android.arch.persistence.room.Relation;
 
+
+import com.example.android.events.model.Classification;
+import com.example.android.events.model.Dates;
+import com.example.android.events.model.Events;
+import com.example.android.events.model.Images;
+import com.example.android.events.model.Start;
+import com.example.android.events.model.Status;
 
 import java.lang.annotation.Annotation;
 import java.util.ArrayList;
@@ -31,14 +38,16 @@ public class EventsRoomEntity implements Entity {
     private Status date_status;
     private String date_timezone;
     private Start date_start;
-    @Relation(parentColumn = "id", entityColumn = "eventId", entity = ImageRoomEntity.class)
-    private List<ImageRoomEntity> images;
     private String locale;
     private String url;
     private String id;
     private String type;
     private String name;
     private String TABLE_NAME = "events";
+    private double price_max;
+    private double price_min;
+    private String price_currency;
+    private String price_type;
 
 
     public EventsRoomEntity(Events event){
@@ -49,12 +58,15 @@ public class EventsRoomEntity implements Entity {
         this.locale = event.getLocale();
         this.info = event.getInfo();
         this.pleaseNote = event.getPleaseNote();
-        this.images = addIdsToImages(event.getImages());
         this.seatmapImage = event.getSeatmap().getStaticUrl();
         this.date_spanMultipleDays = event.getDates().getSpanMultipleDays();
         this.date_status = event.getDates().getStatus();
         this.date_timezone = event.getDates().getTimezone();
         this.date_start = event.getDates().getStart();
+        this.price_max = event.getPriceRanges().get(0).getMax();
+        this.price_min = event.getPriceRanges().get(0).getMin();
+        this.price_currency = event.getPriceRanges().get(0).getCurrency();
+        this.price_type = event.getPriceRanges().get(0).getType();
         parseClassifications(event.getClassifications());
     }
 
@@ -64,16 +76,7 @@ public class EventsRoomEntity implements Entity {
         this.segment_id = classifications.get(0).getSegment().getId();
         this.segment__name = classifications.get(0).getSegment().getName();
     }
-    /*Adds id's for relations'*/
-    public List<ImageRoomEntity> addIdsToImages(List<Images> pojoImages){
-        images = new ArrayList<>();
-        for (Images image: pojoImages){
-            ImageRoomEntity roomImage = new ImageRoomEntity(image);
-            roomImage.setEventID(this.id);
-            images.add(roomImage);
-        }
-        return images;
-    }
+
 
     /*Overrides*/
 

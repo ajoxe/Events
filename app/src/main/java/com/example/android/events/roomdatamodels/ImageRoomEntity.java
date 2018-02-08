@@ -1,6 +1,8 @@
-package com.example.android.events.model;
+package com.example.android.events.roomdatamodels;
 
 import android.arch.persistence.room.Entity;
+
+import com.example.android.events.model.Images;
 
 /**
  * Created by amirahoxendine on 2/6/18.
@@ -15,13 +17,7 @@ public class ImageRoomEntity {
         private String ratio;
         public String eventID;
 
-        public ImageRoomEntity(Images image){
-            fallback = image.getFallback();
-            height= image.getHeight();
-            width = image.getWidth();
-            url = image.getUrl();
-            ratio = image.getUrl();
-        }
+
 
         public String getEventID() {
             return eventID;
