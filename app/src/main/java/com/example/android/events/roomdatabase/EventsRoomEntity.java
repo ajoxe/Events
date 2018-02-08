@@ -4,6 +4,7 @@ import android.arch.persistence.room.Embedded;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.Index;
+import android.arch.persistence.room.PrimaryKey;
 
 
 import com.example.android.events.model.Classification;
@@ -17,10 +18,12 @@ import java.util.List;
 /**
  * Created by amirahoxendine on 2/6/18.
  */
-
-public class EventsRoomEntity implements Entity {
+@Entity(tableName = "events")
+public class EventsRoomEntity {
     //@Embedded(prefix = "foo_")- prefix for embedded objects with the same name.
     //can embed dates.
+    @PrimaryKey
+    private String id;
     @Embedded
     private Dates dates;
     private String seatmapImage;
@@ -36,7 +39,6 @@ public class EventsRoomEntity implements Entity {
     private Start date_start;
     private String locale;
     private String url;
-    private String id;
     private String type;
     private String name;
     private String TABLE_NAME = "events";
@@ -56,35 +58,4 @@ public class EventsRoomEntity implements Entity {
     }
 
 
-    /*Overrides*/
-
-    @Override
-    public String tableName() {
-        return TABLE_NAME;
-    }
-
-    @Override
-    public Index[] indices() {
-        return new Index[0];
-    }
-
-    @Override
-    public boolean inheritSuperIndices() {
-        return false;
-    }
-
-    @Override
-    public String[] primaryKeys() {
-        return new String[0];
-    }
-
-    @Override
-    public ForeignKey[] foreignKeys() {
-        return new ForeignKey[0];
-    }
-
-    @Override
-    public Class<? extends Annotation> annotationType() {
-        return null;
-    }
 }

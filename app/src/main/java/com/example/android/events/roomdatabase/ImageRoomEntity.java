@@ -1,19 +1,21 @@
 package com.example.android.events.roomdatabase;
 
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
 
 /**
  * Created by amirahoxendine on 2/6/18.
  */
 @Entity
 public class ImageRoomEntity {
-
+    @PrimaryKey
+    public String eventID;
         private boolean fallback;
         private int height;
         private int width;
         private String url;
         private String ratio;
-        public String eventID;
+
 
 
 
