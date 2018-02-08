@@ -1,5 +1,6 @@
 package com.example.android.events.model;
 
+
 public class Start {
     private boolean noSpecificTime;
     private boolean timeTBA;

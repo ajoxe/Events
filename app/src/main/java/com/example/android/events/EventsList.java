@@ -4,9 +4,13 @@ package com.example.android.events;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
 import com.example.android.events.RetrofitInstance.RetroFitInstance;
+import com.example.android.events.controller.EventsAdapter;
 import com.example.android.events.model.Embedded;
 import com.example.android.events.model.EventWrapper;
 import com.example.android.events.model.Events;
@@ -29,6 +33,8 @@ public class EventsList extends AppCompatActivity {
     String locale;
     String id;
     String pleaseNote;
+    RecyclerView recyclerView;
+    EventsAdapter eventsAdapter;
 
 
 
@@ -36,6 +42,13 @@ public class EventsList extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.list_events);
+
+        recyclerView = findViewById(R.id.rec_view);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
+        recyclerView.setLayoutManager(linearLayoutManager);
+
+        eventsAdapter= new EventsAdapter(events, getApplicationContext());
+        recyclerView.setAdapter(eventsAdapter);
 
         Call<EventWrapper> getEventsDetails = RetroFitInstance.getInstance()
                 .getApi()
@@ -51,7 +64,7 @@ public class EventsList extends AppCompatActivity {
 
                     events.addAll(response.body().get_embedded().getEvents());
 
-                    for (int i = 0; i < events.size(); i++) {
+                    for (int i = 0; i < events.size(); i++) { // checking if I get inputs
                         name = events.get(i).getName();
                         id = events.get(i).getId();
                         locale = events.get(i).getLocale();
