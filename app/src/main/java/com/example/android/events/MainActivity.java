@@ -14,8 +14,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        EventsDatabase db = Room.databaseBuilder(getApplicationContext(),
-                EventsDatabase.class, "events").build();
+        /*EventsDatabase db = Room.databaseBuilder(getApplicationContext(),
+                EventsDatabase.class, "events").build();*/
     }
 
     public void nextClass(View view) {
