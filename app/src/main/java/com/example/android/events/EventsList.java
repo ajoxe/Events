@@ -46,9 +46,8 @@ public class EventsList extends AppCompatActivity {
         recyclerView = findViewById(R.id.rec_view);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(linearLayoutManager);
-
         eventsAdapter= new EventsAdapter(events, getApplicationContext());
-        recyclerView.setAdapter(eventsAdapter);
+
 
         Call<EventWrapper> getEventsDetails = RetroFitInstance.getInstance()
                 .getApi()
@@ -63,17 +62,7 @@ public class EventsList extends AppCompatActivity {
                 if (response.isSuccessful()) {
 
                     events.addAll(response.body().get_embedded().getEvents());
-
-                    for (int i = 0; i < events.size(); i++) { // checking if I get inputs
-                        name = events.get(i).getName();
-                        id = events.get(i).getId();
-                        locale = events.get(i).getLocale();
-                        pleaseNote = events.get(i).getInfo();
-
-                    }
-
-
-                    Log.d(TAG, "onResponse: " + " name : " + name +  ", " + "locale :  " + locale + ", " +" ID" + id + "," + pleaseNote + " "+"THE END");
+                    recyclerView.setAdapter(eventsAdapter);
 
                 }
 
