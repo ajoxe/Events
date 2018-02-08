@@ -1,4 +1,4 @@
-package com.example.android.events.roomdatamodels;
+package com.example.android.events.roomdatabase;
 
 import android.arch.persistence.room.Embedded;
 import android.arch.persistence.room.Relation;
