@@ -8,7 +8,10 @@ import android.arch.persistence.room.PrimaryKey;
  */
 @Entity
 public class ImageRoomEntity {
-    @PrimaryKey
+
+    @PrimaryKey(autoGenerate = true)
+    private int uid;
+
     public String eventID;
         private boolean fallback;
         private int height;
@@ -17,9 +20,17 @@ public class ImageRoomEntity {
         private String ratio;
 
 
+    public int getUid() {
+        return uid;
+    }
+
+    public void setUid(int uid) {
+        this.uid = uid;
+    }
 
 
-        public String getEventID() {
+
+    public String getEventID() {
             return eventID;
         }
 

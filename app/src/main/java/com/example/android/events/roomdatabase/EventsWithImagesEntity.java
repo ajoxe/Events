@@ -13,7 +13,23 @@ import java.util.List;
 
 public class EventsWithImagesEntity {
     @Embedded
-    Events event;
-    @Relation(parentColumn = "id", entityColumn = "eventId", entity = ImageRoomEntity.class)
+    EventsRoomEntity event;
+    @Relation(parentColumn = "id", entityColumn = "eventID", entity = ImageRoomEntity.class)
     private List<ImageRoomEntity> images;
+
+    public EventsRoomEntity getEvent() {
+        return event;
+    }
+
+    public void setEvent(EventsRoomEntity event) {
+        this.event = event;
+    }
+
+    public List<ImageRoomEntity> getImages() {
+        return images;
+    }
+
+    public void setImages(List<ImageRoomEntity> images) {
+        this.images = images;
+    }
 }
