@@ -8,24 +8,24 @@ package com.example.android.events.model;
 
 public class PriceRanges {
 
-    private int max;
-    private int min;
+    private double max;
+    private double min;
     private String currency;
     private String type;
 
-    public int getMax() {
+    public double getMax() {
         return max;
     }
 
-    public void setMax(int max) {
+    public void setMax(double max) {
         this.max = max;
     }
 
-    public int getMin() {
+    public double getMin() {
         return min;
     }
 
-    public void setMin(int min) {
+    public void setMin(double min) {
         this.min = min;
     }
 
