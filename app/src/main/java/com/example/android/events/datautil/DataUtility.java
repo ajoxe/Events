@@ -23,13 +23,15 @@ public class DataUtility {
                 Locale.US);
         outputFormat.setTimeZone(utc);
 
-        Date date = null;
+        Date date = new Date();
         try {
             date = inputFormat.parse(time);
+            String output = outputFormat.format(date);
+            return output;
         } catch (ParseException e) {
             e.printStackTrace();
         }
-            String output = outputFormat.format(date);
+        String output = outputFormat.format(date);
         return output;
     }
 
