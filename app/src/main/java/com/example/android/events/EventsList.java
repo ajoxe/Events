@@ -33,8 +33,12 @@ public class EventsList extends AppCompatActivity {
     String locale;
     String id;
     String pleaseNote;
+
+    public String TAG = "taggggg : ";
+
     RecyclerView recyclerView;
     EventsAdapter eventsAdapter;
+
 
 
 
@@ -43,17 +47,22 @@ public class EventsList extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.list_events);
 
+        init();
+    }
+
+    public void init(){
+
         recyclerView = findViewById(R.id.rec_view);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(linearLayoutManager);
         eventsAdapter= new EventsAdapter(events, getApplicationContext());
 
 
+
         Call<EventWrapper> getEventsDetails = RetroFitInstance.getInstance()
                 .getApi()
                 .getEventResponse("US");
         getEventsDetails.enqueue(new Callback<EventWrapper>() {
-            public String TAG = "taggggg : ";
 
             @Override
             public void onResponse(Call<EventWrapper> call, Response<EventWrapper> response) {
@@ -78,5 +87,6 @@ public class EventsList extends AppCompatActivity {
 
     }
 
-
 }
+
+
