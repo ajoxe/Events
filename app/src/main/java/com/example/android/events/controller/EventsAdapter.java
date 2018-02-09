@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
@@ -23,10 +24,11 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventsList
     List<Events> events = new ArrayList<>();
     Context context;
     View view;
-   public   DataUtility dataUtility = new DataUtility();
+    DataUtility dataUtility = new DataUtility();
+    String eventTim;
 
 
-    public EventsAdapter(List<Events> myEvents, Context context){
+    public EventsAdapter(List<Events> myEvents, Context context) {
         this.events = myEvents;
         this.context = context;
 
@@ -52,59 +54,60 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventsList
     }
 
 
-     class EventsListViewHolder extends RecyclerView.ViewHolder{
+    class EventsListViewHolder extends RecyclerView.ViewHolder {
 
         private TextView name;
         private TextView price;
         private TextView date;
-        private TextView locale;
+        private Button moreInfoButton;
         private CheckBox checkBox;
+        private String timeParsed;
+        private String dateformated;
+        private String timeZone;
         private TextView eventTime;
 
 
+        public EventsListViewHolder(View itemView) {
+            super(itemView);
+
+
+            name = itemView.findViewById(R.id.event_name);
+            price = itemView.findViewById(R.id.price);
+            date = itemView.findViewById(R.id.date);
+            moreInfoButton = itemView.findViewById(R.id.moreInfo);
+            checkBox = itemView.findViewById(R.id.fav_box);
+            eventTime = itemView.findViewById(R.id.event_time);
+
+        }
+
+
+        public void onBind(Events event) {
+            double max = 0;
+            double min = 0;
+            String currencyType = null;
+
+
+            for (int i = 0; i < event.getPriceRanges().size(); i++) {
+                max = event.getPriceRanges().get(i).getMax();
+                min = event.getPriceRanges().get(i).getMin();
+                currencyType = event.getPriceRanges().get(i).getCurrency();
+
+            }
+
+            timeZone = event.getDates().getTimezone();
+            timeParsed = dataUtility.parseTime(event.getDates().getStart().getLocalTime(), timeZone);
+            dateformated = dataUtility.parseDate(event.getDates().getStart().getLocalDate());
+
+
+            name.setText(event.getName());
+            price.setText(min + " - " + max + " " + currencyType);
+            date.setText(dateformated);
+            eventTime.setText(timeParsed);
 
 
 
-         public EventsListViewHolder(View itemView) {
-             super(itemView);
+        }
 
-
-             name = itemView.findViewById(R.id.event_name);
-             price = itemView.findViewById(R.id.price);
-             date = itemView.findViewById(R.id.date);
-             locale = itemView.findViewById(R.id.locale);
-             checkBox = itemView.findViewById(R.id.fav_box);
-             eventTime = itemView.findViewById(R.id.event_time);
-
-         }
-
-
-
-         public void onBind(Events event){
-             double max= 0 ;
-             double min = 0;
-             String currencyType = null;
-
-
-
-             for (int i = 0; i < event.getPriceRanges().size() ; i++) {
-                 max = event.getPriceRanges().get(i).getMax();
-                 min = event.getPriceRanges().get(i).getMin();
-                 currencyType = event.getPriceRanges().get(i).getCurrency();
-
-             }
-
-               dataUtility.parseTime(event.getDates().getStart().getLocalTime());
-
-             name.setText(event.getName());
-             price.setText(min + " - " + max + " "+ currencyType);
-             date.setText(event.getDates().getStart().getLocalDate());
-             eventTime.setText(event.getDates().getStart().getLocalTime());
-             locale.setText(event.getLocale());
-
-
-         }
-
-     }
+    }
 
 }

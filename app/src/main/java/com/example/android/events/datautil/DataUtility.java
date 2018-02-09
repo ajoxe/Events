@@ -1,6 +1,7 @@
 package com.example.android.events.datautil;
 
 import java.text.DateFormat;
+import java.text.Format;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -14,12 +15,12 @@ import java.util.TimeZone;
 public class DataUtility {
 
 
-    public String parseTime(String time) {
-        TimeZone utc = TimeZone.getTimeZone("etc/UTC");
-        DateFormat inputFormat = new SimpleDateFormat("dd MMM, yyyy HH:mm",
+    public String parseTime(String time,String timeZone) {
+        TimeZone utc = TimeZone.getTimeZone(timeZone);
+        DateFormat inputFormat = new SimpleDateFormat("HH:mm",
                 Locale.US);
         inputFormat.setTimeZone(utc);
-        DateFormat outputFormat = new SimpleDateFormat("dd MMM, yyyy hh:mm aa",
+        DateFormat outputFormat = new SimpleDateFormat("hh:mm aa",
                 Locale.US);
         outputFormat.setTimeZone(utc);
 
@@ -33,6 +34,32 @@ public class DataUtility {
         }
         String output = outputFormat.format(date);
         return output;
+    }
+
+
+
+    public String parseDate(String date){
+
+
+        DateFormat inputFormat = new SimpleDateFormat("yyyy-mm-dd", Locale.US);
+
+
+        DateFormat outPutFormat = new SimpleDateFormat("MMMM d, yyyy", Locale.US);
+
+
+        Date dateFormatted = new Date();
+        try {
+            dateFormatted = inputFormat.parse(date);
+            String output = outPutFormat.format(dateFormatted);
+            return output;
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        String output = outPutFormat.format(dateFormatted);
+        return output;
+
+
+
     }
 
 }
