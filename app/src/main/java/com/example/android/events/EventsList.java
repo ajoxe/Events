@@ -4,9 +4,13 @@ package com.example.android.events;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
 import com.example.android.events.RetrofitInstance.RetroFitInstance;
+import com.example.android.events.controller.EventsAdapter;
 import com.example.android.events.model.Embedded;
 import com.example.android.events.model.EventWrapper;
 import com.example.android.events.model.Events;
@@ -29,7 +33,12 @@ public class EventsList extends AppCompatActivity {
     String locale;
     String id;
     String pleaseNote;
+
     public String TAG = "taggggg : ";
+
+    RecyclerView recyclerView;
+    EventsAdapter eventsAdapter;
+
 
 
 
@@ -38,9 +47,18 @@ public class EventsList extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.list_events);
 
+        init();
     }
 
     public void init(){
+
+        recyclerView = findViewById(R.id.rec_view);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
+        recyclerView.setLayoutManager(linearLayoutManager);
+        eventsAdapter= new EventsAdapter(events, getApplicationContext());
+
+
+
         Call<EventWrapper> getEventsDetails = RetroFitInstance.getInstance()
                 .getApi()
                 .getEventResponse("US");
@@ -53,17 +71,7 @@ public class EventsList extends AppCompatActivity {
                 if (response.isSuccessful()) {
 
                     events.addAll(response.body().get_embedded().getEvents());
-
-                    for (int i = 0; i < events.size(); i++) {
-                        name = events.get(i).getName();
-                        id = events.get(i).getId();
-                        locale = events.get(i).getLocale();
-                        pleaseNote = events.get(i).getInfo();
-
-                    }
-
-
-                    Log.d(TAG, "onResponse: " + " name : " + name +  ", " + "locale :  " + locale + ", " +" ID" + id + "," + pleaseNote + " "+"THE END");
+                    recyclerView.setAdapter(eventsAdapter);
 
                 }
 

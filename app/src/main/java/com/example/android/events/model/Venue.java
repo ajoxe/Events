@@ -1,5 +1,7 @@
 package com.example.android.events.model;
 
+
+
 import java.util.List;
 
 /**
@@ -245,14 +247,72 @@ public class Venue {
 
 
     public static class Address {
+
+        private String line1;
+
+        public String getLine1() {
+            return line1;
+        }
+
+        public void setLine1(String line1) {
+            this.line1 = line1;
+        }
     }
 
     public static class Country {
+
+        private String countryCode;
+        private String name;
+
+        public String getCountryCode() {
+            return countryCode;
+        }
+
+        public void setCountryCode(String countryCode) {
+            this.countryCode = countryCode;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
     }
 
     public static class State {
+
+        private String stateCode;
+        private String name;
+
+        public String getStateCode() {
+            return stateCode;
+        }
+
+        public void setStateCode(String stateCode) {
+            this.stateCode = stateCode;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
     }
 
     public static class City {
+
+        private String name;
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
     }
 }
