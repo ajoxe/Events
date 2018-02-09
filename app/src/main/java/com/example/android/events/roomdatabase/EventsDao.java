@@ -16,4 +16,16 @@ public interface EventsDao {
         @Query("SELECT * FROM events")
         List<EventsWithImagesEntity> getAll();
 
+        /*@Query("SELECT * FROM user where first_name LIKE  :firstName AND last_name LIKE :lastName")
+        User findByName(String firstName, String lastName);
+
+        @Query("SELECT COUNT(*) from user")
+        int countUsers();
+
+        @Insert
+        void insertAll(User... users);
+
+        @Delete
+        void delete(User user);*/
+
 }

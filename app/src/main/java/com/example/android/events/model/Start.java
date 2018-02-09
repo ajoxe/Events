@@ -3,9 +3,11 @@ package com.example.android.events.model;
 
 public class Start {
     private boolean noSpecificTime;
+
     private boolean timeTBA;
     private boolean dateTBA;
     private boolean dateTBD;
+
     private String dateTime;
     private String localTime;
     private String localDate;

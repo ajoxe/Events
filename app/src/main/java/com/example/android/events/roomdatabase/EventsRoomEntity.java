@@ -33,9 +33,16 @@ public class EventsRoomEntity {
     private String genre_id;
     private String segment__name;
     private String segment_id;
-    private boolean date_spanMultipleDays;
 
+    private boolean date_spanMultipleDays;
     private String date_timezone;
+    private boolean date_no_specific_time;
+    private boolean date_time_tba;
+    private boolean date_date_tba;
+    private boolean date_date_tbd;
+    private String date_date_time;
+    private String date_local_time;
+    private String date_local_date;
 
     private String locale;
     private String url;
@@ -214,12 +221,63 @@ public class EventsRoomEntity {
         this.price_type = price_type;
     }
 
-    public void parseClassifications(List<Classification> classifications){
-        this.genre_id = classifications.get(0).getGenre().getId();
-        this.genre_name = classifications.get(0).getGenre().getName();
-        this.segment_id = classifications.get(0).getSegment().getId();
-        this.segment__name = classifications.get(0).getSegment().getName();
+    public boolean isDate_no_specific_time() {
+        return date_no_specific_time;
     }
+
+    public void setDate_no_specific_time(boolean date_no_specific_time) {
+        this.date_no_specific_time = date_no_specific_time;
+    }
+
+    public boolean isDate_time_tba() {
+        return date_time_tba;
+    }
+
+    public void setDate_time_tba(boolean date_time_tba) {
+        this.date_time_tba = date_time_tba;
+    }
+
+    public boolean isDate_date_tba() {
+        return date_date_tba;
+    }
+
+    public void setDate_date_tba(boolean date_date_tba) {
+        this.date_date_tba = date_date_tba;
+    }
+
+    public boolean isDate_date_tbd() {
+        return date_date_tbd;
+    }
+
+    public void setDate_date_tbd(boolean date_date_tbd) {
+        this.date_date_tbd = date_date_tbd;
+    }
+
+    public String getDate_date_time() {
+        return date_date_time;
+    }
+
+    public void setDate_date_time(String date_date_time) {
+        this.date_date_time = date_date_time;
+    }
+
+    public String getDate_local_time() {
+        return date_local_time;
+    }
+
+    public void setDate_local_time(String date_local_time) {
+        this.date_local_time = date_local_time;
+    }
+
+    public String getDate_local_date() {
+        return date_local_date;
+    }
+
+    public void setDate_local_date(String date_local_date) {
+        this.date_local_date = date_local_date;
+    }
+
+
 
 
 }
