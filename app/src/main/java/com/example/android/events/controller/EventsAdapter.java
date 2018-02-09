@@ -23,7 +23,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventsList
     List<Events> events = new ArrayList<>();
     Context context;
     View view;
-   public DataUtility dataUtility = new DataUtility();
+   public   DataUtility dataUtility = new DataUtility();
 
 
     public EventsAdapter(List<Events> myEvents, Context context){
