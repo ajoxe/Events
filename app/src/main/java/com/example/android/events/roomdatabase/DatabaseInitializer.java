@@ -5,12 +5,12 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.example.android.events.RetrofitInstance.RetroFitInstance;
+import com.example.android.events.jobs.RetrofitJob;
 import com.example.android.events.model.EventWrapper;
 import com.example.android.events.model.Events;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -82,10 +82,19 @@ public class DatabaseInitializer {
     }*/
 
 
+    public static void getEventsFromNetwork(@NonNull final EventsDatabase db) {
+        doStuff(db, null);
+
+    }
 
 
-    private static void getEventsFromNetwork(@NonNull final EventsDatabase db){
-         final List<Events> events = new ArrayList();
+
+    public static void getEventsFromNetwork(@NonNull final EventsDatabase db, final RetrofitJob.JobFinishedListener listener){
+       doStuff(db, listener);
+    }
+
+    private static void doStuff(@NonNull final EventsDatabase db, final RetrofitJob.JobFinishedListener listener){
+        final List<Events> events = new ArrayList();
         Call<EventWrapper> getEventsDetails = RetroFitInstance.getInstance()
                 .getApi()
                 .getEventResponse("US");
@@ -96,13 +105,17 @@ public class DatabaseInitializer {
                 Log.d(TAG, "onResponse: " + " TRESPONSEE");
 
                 if (response.isSuccessful()) {
-                    events.addAll(response.body().get_embedded().getEvents());
+                    events.addAll(response.body().getEmbedded().getEvents());
                     List<EventsRoomEntity> entities = eventUtility.eventsToEntity(events);
                     db.eventsDao().insertAllEvents(entities);
                     eventsQuery = eventUtility.entitiesToEvents(db.eventsDao().getAll());
 
                     Log.d(TAG, "onResponse: " + " TRESPONSEE response size" + events.size());
                     Log.d(TAG, "onResponse: " + " TRESPONSEE eventsList" + eventsQuery.size());
+                    if (listener!= null){
+                        listener.callJobFinished();
+
+                    }
                 }
 
             }
@@ -110,6 +123,9 @@ public class DatabaseInitializer {
             @Override
             public void onFailure(Call<EventWrapper> call, Throwable t) {
 
+                if (listener!= null) {
+                    listener.callJobFinished();
+                }
                 t.printStackTrace();
             }
         });

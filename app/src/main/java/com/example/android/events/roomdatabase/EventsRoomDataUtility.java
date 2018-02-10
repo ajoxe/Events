@@ -16,6 +16,7 @@ public class EventsRoomDataUtility {
 
    public EventsRoomEntity eventToEntity(Events event, String status){
        EventsRoomEntity eventEntity = new EventsRoomEntity();
+       eventEntity.setId(event.getId());
        eventEntity.setName(event.getName());
        eventEntity.setType(event.getType());
        eventEntity.setUrl(event.getUrl());
@@ -35,6 +36,7 @@ public class EventsRoomDataUtility {
 
     public Events entityToEvents(EventsRoomEntity eventsRoomEntity){
         Events event = new Events();
+        event.setId(eventsRoomEntity.getId());
         event.setName(eventsRoomEntity.getName());
         event.setType(eventsRoomEntity.getType());
         event.setUrl(eventsRoomEntity.getUrl());

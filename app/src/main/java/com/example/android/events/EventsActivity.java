@@ -1,12 +1,15 @@
 package com.example.android.events;
 
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
 
 import com.example.android.events.RetrofitInstance.RetroFitInstance;
 import com.example.android.events.controller.EventsAdapter;
@@ -31,11 +34,15 @@ public class EventsActivity extends AppCompatActivity {
     public String TAG = EventsActivity.class.getSimpleName();
     RecyclerView recyclerView;
     EventsAdapter eventsAdapter;
+    View.OnClickListener infoClick;
+    Context context;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.list_events);
+        context = getApplicationContext();
 
         init();
     }
@@ -44,9 +51,22 @@ public class EventsActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.rec_view);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(linearLayoutManager);
+        setInfoClick();
         Log.d("DB TEST", "list size" + events.size());
-        eventsAdapter= new EventsAdapter(events, getApplicationContext());
+        eventsAdapter= new EventsAdapter(events, getApplicationContext(), infoClick);
         recyclerView.setAdapter(eventsAdapter);
+    }
+
+    public void setInfoClick(){
+        infoClick = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String id = v.getTag().toString();
+                DatabaseInitializer.getEventById(EventsDatabase.getEventsDatabase(context),id);
+                Intent detailIntent = new Intent(EventsActivity.this, EventDetailActivity.class);
+                startActivity(detailIntent);
+            }
+        };
     }
 
     @Override
@@ -54,6 +74,8 @@ public class EventsActivity extends AppCompatActivity {
         EventsDatabase.destroyInstance();
         super.onDestroy();
     }
+
+
 
 }
 
