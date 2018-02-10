@@ -14,14 +14,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
         DatabaseInitializer.populateAsync(EventsDatabase.getEventsDatabase(this));
+        DatabaseInitializer.queryDb(EventsDatabase.getEventsDatabase(this));
+
 
     }
 
     public void nextClass(View view) {
-        Intent i = new Intent(MainActivity.this, EventsList.class);
+        Intent i = new Intent(MainActivity.this, DbTestEventsListActivity.class);
         startActivity(i);
     }
 

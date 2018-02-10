@@ -52,6 +52,24 @@ public class EventsRoomDataUtility {
         return event;
     }
 
+    public List<EventsRoomEntity> eventsToEntity(List<Events> events){
+        List<EventsRoomEntity> entities = new ArrayList<>();
+        for (Events event : events){
+            EventsRoomEntity entity = eventToEntity(event, "not saved");
+            entities.add(entity);
+        }
+        return entities;
+    }
+
+    public List<Events> entitiesToEvents(List<EventsRoomEntity> entities){
+        List<Events> events = new ArrayList<>();
+        for (EventsRoomEntity entity : entities){
+            Events event = entityToEvents(entity);
+            events.add(event);
+        }
+        return events;
+    }
+
 
    //List<ImageRoomEntity> imageRoomEntityList;
 

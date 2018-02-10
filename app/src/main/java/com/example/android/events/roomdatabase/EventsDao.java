@@ -18,14 +18,14 @@ import static android.arch.persistence.room.OnConflictStrategy.REPLACE;
 @Dao
 public interface EventsDao {
 
-        @Transaction @Query("SELECT * FROM events")
+        @Query("SELECT * FROM events")
         List<EventsRoomEntity> getAll();
 
         @Insert(onConflict = REPLACE)
         void insertEvent(EventsRoomEntity event);
 
         @Insert(onConflict = REPLACE)
-        void insertAllEvents(EventsRoomEntity... events);
+        void insertAllEvents(List<EventsRoomEntity> events);
 
         @Query("SELECT * FROM events where id LIKE  :id")
         EventsRoomEntity findEventByID(String id);

@@ -4,9 +4,16 @@ import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
+import com.example.android.events.RetrofitInstance.RetroFitInstance;
+import com.example.android.events.model.EventWrapper;
 import com.example.android.events.model.Events;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by amirahoxendine on 2/9/18.
@@ -15,28 +22,79 @@ import java.util.List;
 public class DatabaseInitializer {
 
     private static final String TAG = DatabaseInitializer.class.getName();
-    public EventsRoomDataUtility eventUtility = new EventsRoomDataUtility();
+    public static EventsRoomDataUtility eventUtility = new EventsRoomDataUtility();
+    private static List<Events> eventsList = new ArrayList<>();
+
+    public static List<Events> getEventsList() {
+        return eventsList;
+    }
+
+    public static void setEventsList(List<Events> eventsList) {
+        DatabaseInitializer.eventsList = eventsList;
+    }
 
     public static void populateAsync(@NonNull final EventsDatabase db) {
         PopulateDbAsync task = new PopulateDbAsync(db);
         task.execute();
     }
 
-    public static void populateSync(@NonNull final EventsDatabase db) {
-        populateWithEventsData(db);
+    private static void addEvent(final EventsDatabase db, EventsRoomEntity event) {
+        db.eventsDao().insertEvent(event);
     }
 
-    private static EventsRoomEntity addEvent(final EventsDatabase db, EventsRoomEntity event) {
+    private static void getEventsFromDB(EventsDatabase db){
+        setEventsList(eventUtility.entitiesToEvents(db.eventsDao().getAll()));
+        Log.d("get events", "eventslist size" + eventsList.size());
+    }
 
-        db.eventsDao().insertEvent(event);
-        return event;
+    public static void queryDb(@NonNull final EventsDatabase db){
+        QueryDbAsync listTask = new QueryDbAsync(db);
+        listTask.execute();
+    }
+
+    public static void queryEvents(){
     }
 
     private static void populateWithEventsData(EventsDatabase db) {
 
+    }
 
-        List<EventsRoomEntity> eventsList = db.eventsDao().getAll();
-        Log.d(DatabaseInitializer.TAG, "Rows Count: " + eventsList.size());
+
+
+    private static int databasEntryCount(EventsDatabase db){
+        return db.eventsDao().countEvents();
+    }
+
+    private static void getEventsFromNetwork(@NonNull final EventsDatabase db){
+         final List<Events> events = new ArrayList();
+        Call<EventWrapper> getEventsDetails = RetroFitInstance.getInstance()
+                .getApi()
+                .getEventResponse("US");
+        getEventsDetails.enqueue(new Callback<EventWrapper>() {
+
+            @Override
+            public void onResponse(Call<EventWrapper> call, Response<EventWrapper> response) {
+                Log.d(TAG, "onResponse: " + " TRESPONSEE");
+
+                if (response.isSuccessful()) {
+                    events.addAll(response.body().get_embedded().getEvents());
+                    List<EventsRoomEntity> entities = eventUtility.eventsToEntity(events);
+                    db.eventsDao().insertAllEvents(entities);
+                    setEventsList(eventUtility.entitiesToEvents(db.eventsDao().getAll()));
+
+                    Log.d(TAG, "onResponse: " + " TRESPONSEE" + events.size());
+                    Log.d(TAG, "onResponse: " + " TRESPONSEE" + eventsList.size());
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<EventWrapper> call, Throwable t) {
+
+                t.printStackTrace();
+            }
+        });
+
     }
 
     private static class PopulateDbAsync extends AsyncTask<Void, Void, Void> {
@@ -49,9 +107,27 @@ public class DatabaseInitializer {
 
         @Override
         protected Void doInBackground(final Void... params) {
-            populateWithEventsData(mDb);
+            if (databasEntryCount(mDb) == 0){
+                getEventsFromNetwork(mDb);
+                //populateWithEventsData(mDb);
+            }
             return null;
         }
-
     }
+
+    private static class QueryDbAsync extends AsyncTask<Void, Void, Void> {
+
+        private final EventsDatabase mDb;
+
+        QueryDbAsync(EventsDatabase db) {
+            mDb = db;
+        }
+
+        @Override
+        protected Void doInBackground(final Void... params) {
+            getEventsFromDB(mDb);
+            return null;
+        }
+    }
+
 }
