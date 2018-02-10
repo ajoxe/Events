@@ -5,7 +5,6 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
@@ -22,11 +21,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-
-        <!--<activity android:name=".DbTestEventsListActivity"></activity>-->
-
-        <activity android:name=".EventsActivity"/>
+        <activity android:name=".EventsActivity" />
+        <activity android:name=".EventDetailActivity"></activity>
     </application>
 
 </manifest>

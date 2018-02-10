@@ -12,6 +12,8 @@ import com.example.android.events.RetrofitInstance.RetroFitInstance;
 import com.example.android.events.controller.EventsAdapter;
 import com.example.android.events.model.EventWrapper;
 import com.example.android.events.model.Events;
+import com.example.android.events.roomdatabase.DatabaseInitializer;
+import com.example.android.events.roomdatabase.EventsDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,20 +27,10 @@ import retrofit2.Response;
  */
 
 public class EventsActivity extends AppCompatActivity {
-    List<Events> events = new ArrayList();
-    String name;
-    String price;
-    String locale;
-    String id;
-    String pleaseNote;
-
-    public String TAG = "taggggg : ";
-
+    List<Events> events = DatabaseInitializer.eventsQuery;
+    public String TAG = EventsActivity.class.getSimpleName();
     RecyclerView recyclerView;
     EventsAdapter eventsAdapter;
-
-
-
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -49,40 +41,18 @@ public class EventsActivity extends AppCompatActivity {
     }
 
     public void init(){
-
         recyclerView = findViewById(R.id.rec_view);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(linearLayoutManager);
+        Log.d("DB TEST", "list size" + events.size());
         eventsAdapter= new EventsAdapter(events, getApplicationContext());
+        recyclerView.setAdapter(eventsAdapter);
+    }
 
-
-
-        Call<EventWrapper> getEventsDetails = RetroFitInstance.getInstance()
-                .getApi()
-                .getEventResponse("US");
-        getEventsDetails.enqueue(new Callback<EventWrapper>() {
-
-            @Override
-            public void onResponse(Call<EventWrapper> call, Response<EventWrapper> response) {
-                Log.d(TAG, "onResponse: " + " TRESPONSEE");
-
-                if (response.isSuccessful()) {
-
-                    events.addAll(response.body().get_embedded().getEvents());
-                    recyclerView.setAdapter(eventsAdapter);
-
-                }
-
-            }
-
-            @Override
-            public void onFailure(Call<EventWrapper> call, Throwable t) {
-
-                t.printStackTrace();
-            }
-        });
-
-
+    @Override
+    protected void onDestroy() {
+        EventsDatabase.destroyInstance();
+        super.onDestroy();
     }
 
 }
