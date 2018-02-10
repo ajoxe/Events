@@ -57,7 +57,7 @@ public class EventsActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(linearLayoutManager);
         setInfoClick();
         setSaveCheckboxClick();
-        Log.d("DB TEST", "list size" + events.size());
+        Log.d(TAG, "list size" + events.size());
         eventsAdapter= new EventsAdapter(events, getApplicationContext(), infoClick, saveCheckboxClick);
         recyclerView.setAdapter(eventsAdapter);
     }
@@ -80,9 +80,17 @@ public class EventsActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String id = v.getTag().toString();
                 CheckBox checkbox = (CheckBox) v.findViewWithTag(id);
-                Events event = eventUtility.getEventfromMap(eventUtility.eventsHashMap(events), id);
+
                 if(checkbox.isChecked()) {
-                    DatabaseInitializer.saveEvent(EventsDatabase.getEventsDatabase(context), event);
+                    DatabaseInitializer.saveEvent(EventsDatabase.getEventsDatabase(context), id);
+                    eventUtility.getEventfromMap(eventUtility.eventsHashMap(events), id).setSaved(true);
+                    eventsAdapter.notifyDataSetChanged();
+                    Log.d(TAG, "event saved");
+                } else if(!checkbox.isChecked()){
+                    eventUtility.getEventfromMap(eventUtility.eventsHashMap(events), id).setSaved(false);
+                    DatabaseInitializer.deleteEvent(EventsDatabase.getEventsDatabase(context), id);
+                    eventsAdapter.notifyDataSetChanged();
+                    Log.d(TAG, "event deleted");
                 }
             }
         };

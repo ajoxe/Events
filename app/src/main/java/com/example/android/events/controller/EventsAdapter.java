@@ -46,9 +46,9 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventsList
 
     @Override
     public void onBindViewHolder(EventsListViewHolder holder, int position) {
+
         final Events event = events.get(position);
         holder.onBind(event);
-
 
     }
 
@@ -74,14 +74,12 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventsList
         public EventsListViewHolder(View itemView) {
             super(itemView);
 
-
             name = itemView.findViewById(R.id.event_name);
             price = itemView.findViewById(R.id.price);
             date = itemView.findViewById(R.id.date);
             moreInfoButton = itemView.findViewById(R.id.moreInfo);
             checkBox = itemView.findViewById(R.id.fav_box);
             eventTime = itemView.findViewById(R.id.event_time);
-
         }
 
 
@@ -92,8 +90,14 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventsList
             moreInfoButton.setTag(event.getId());
             Log.d("adapter", "info tag " + event.getId());
             moreInfoButton.setOnClickListener(infoClick);
+
+            checkBox.setChecked(event.isSaved());
             checkBox.setTag(event.getId());
             checkBox.setOnClickListener(savedClick);
+
+
+
+
 
             for (int i = 0; i < event.getPriceRanges().size(); i++) {
                 max = event.getPriceRanges().get(i).getMax();
@@ -108,9 +112,11 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventsList
 
 
             name.setText(event.getName());
+
             price.setText("Price: "+"$"+(int) min + " - " +"$"+ (int) max + " " + currencyType);
             date.setText("Date: "+ dateformated);
             eventTime.setText("Time: "+ timeParsed);
+
 
         }
 

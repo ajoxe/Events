@@ -39,6 +39,7 @@ public class EventsRoomEntity {
     private String url;
     private String type;
     private String name;
+    private boolean isSaved;
 
     @Embedded
     private Dates dates;
@@ -54,6 +55,14 @@ public class EventsRoomEntity {
     private List<Classification> classifications;
     @TypeConverters(DataConverter.class)
     private VenueEmbedded _embedded;
+
+    public boolean isSaved() {
+        return isSaved;
+    }
+
+    public void setSaved(boolean saved) {
+        isSaved = saved;
+    }
 
     public String getStatus() {
         return status;

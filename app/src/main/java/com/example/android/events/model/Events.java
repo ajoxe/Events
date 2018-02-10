@@ -27,6 +27,15 @@ public class Events {
 
     private VenueEmbedded _embedded;
 
+    private boolean isSaved;
+
+    public boolean isSaved() {
+        return isSaved;
+    }
+
+    public void setSaved(boolean saved) {
+        isSaved = saved;
+    }
 
     public Events(){
 

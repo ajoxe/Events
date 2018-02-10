@@ -32,6 +32,9 @@ public class EventsRoomDataUtility {
        eventEntity.setClassifications(event.getClassifications());
        eventEntity.set_embedded(event.get_embedded());
        eventEntity.setStatus(status);
+       if (status.equals("saved")){
+           eventEntity.setSaved(true);
+       }
        return eventEntity;
    }
 
@@ -51,6 +54,7 @@ public class EventsRoomDataUtility {
         event.setImages(eventsRoomEntity.getImages());
         event.setClassifications(eventsRoomEntity.getClassifications());
         event.set_embedded(eventsRoomEntity.get_embedded());
+        event.setSaved(eventsRoomEntity.isSaved());
         return event;
     }
 

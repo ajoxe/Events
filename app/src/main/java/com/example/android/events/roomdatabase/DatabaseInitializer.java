@@ -66,15 +66,14 @@ public class DatabaseInitializer {
         return event;
     }
 
-    private static void saveEventAsync(final EventsDatabase db, Events event ) {
-        savedEventsList.add(event);
-        EventsRoomEntity eventEntity = eventUtility.eventToEntity(event, "saved");
-        db.eventsDao().insertEvent(eventEntity);
+    public static void saveEvent(final EventsDatabase db, String id ){
+        InsertSavedEventAsync savedAsync = new InsertSavedEventAsync(db, id);
+        savedAsync.execute();
     }
 
-    public static void saveEvent(final EventsDatabase db, Events event ){
-        InsertSavedEventAsync savedAsync = new InsertSavedEventAsync(db, event);
-        savedAsync.execute();
+    public static void deleteEvent(final EventsDatabase db, String id){
+        DeleteSavedEventAsync deleteEventTask = new DeleteSavedEventAsync(db,id);
+        deleteEventTask.execute();
     }
 
 
@@ -111,7 +110,7 @@ public class DatabaseInitializer {
                         db.eventsDao().deleteAllEvents(db.eventsDao().getNotSaved());
                     }
                     db.eventsDao().insertAllEvents(entities);
-                    eventsQuery = eventUtility.entitiesToEvents(db.eventsDao().getAll());
+                    eventsQuery = eventUtility.entitiesToEvents(db.eventsDao().getNotSaved());
 
                     Log.d(TAG, "onResponse: " + " TRESPONSEE response size" + events.size());
                     Log.d(TAG, "onResponse: " + " TRESPONSEE eventsQuery" + eventsQuery.size());
@@ -217,18 +216,44 @@ public class DatabaseInitializer {
     private static class InsertSavedEventAsync extends AsyncTask<Void, Void, Void> {
 
         private final EventsDatabase mDb;
-        private Events event;
+        private String id;
+        private Events saveEvent;
 
-        InsertSavedEventAsync(EventsDatabase db, Events event) {
-            this.event = event;
+        InsertSavedEventAsync(EventsDatabase db, String id) {
+            this.id = id;
             mDb = db;
         }
 
         @Override
         protected Void doInBackground(Void... voids) {
-            saveEventAsync(mDb, event);
+            saveEvent = eventUtility.getEventfromMap(eventUtility.eventsHashMap(eventsQuery), id);
+            saveEvent.setSaved(true);
+            savedEventsList.add(saveEvent);
+            EventsRoomEntity eventEntity = eventUtility.eventToEntity(saveEvent, "saved");
+            mDb.eventsDao().insertEvent(eventEntity);
             return null;
         }
+    }
+
+        /*delete single event from to db asynchronously*/
+        private static class DeleteSavedEventAsync extends AsyncTask<Void, Void, Void> {
+
+            private final EventsDatabase mDb;
+            private String id;
+            private Events event;
+
+            DeleteSavedEventAsync(EventsDatabase db, String id) {
+                this.id = id;
+                mDb = db;
+            }
+
+            @Override
+            protected Void doInBackground(Void... voids) {
+                event = eventUtility.getEventfromMap(eventUtility.eventsHashMap(eventsQuery), id);
+                savedEventsList.remove(event);
+                mDb.eventsDao().deleteEvent(mDb.eventsDao().findEventByID(id));
+                return null;
+            }
     }
 
 
