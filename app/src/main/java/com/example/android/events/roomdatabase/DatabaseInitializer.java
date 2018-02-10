@@ -33,13 +33,10 @@ public class DatabaseInitializer {
         DatabaseInitializer.eventsList = eventsList;
     }
 
+
     public static void populateAsync(@NonNull final EventsDatabase db) {
         PopulateDbAsync task = new PopulateDbAsync(db);
         task.execute();
-    }
-
-    private static void addEvent(final EventsDatabase db, EventsRoomEntity event) {
-        db.eventsDao().insertEvent(event);
     }
 
     private static void getEventsFromDB(EventsDatabase db){
@@ -52,6 +49,18 @@ public class DatabaseInitializer {
         listTask.execute();
     }
 
+
+    private static int databasEntryCount(EventsDatabase db){
+        return db.eventsDao().countEvents();
+    }
+
+
+    private static void addEvent(final EventsDatabase db, EventsRoomEntity event) {
+        db.eventsDao().insertEvent(event);
+    }
+
+
+
     public static void queryEvents(){
     }
 
@@ -59,11 +68,6 @@ public class DatabaseInitializer {
 
     }
 
-
-
-    private static int databasEntryCount(EventsDatabase db){
-        return db.eventsDao().countEvents();
-    }
 
     private static void getEventsFromNetwork(@NonNull final EventsDatabase db){
          final List<Events> events = new ArrayList();
