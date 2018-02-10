@@ -35,11 +35,37 @@ public class RetrofitJob extends JobService{
     });
 
 
-
-
     @Override
     public boolean onStartJob(JobParameters params) {
-        return false;
+
+        Call<EventWrapper> getEventsDetails = RetroFitInstance.getInstance()
+                .getApi()
+                .getEventResponse("US");
+        getEventsDetails.enqueue(new Callback<EventWrapper>() {
+
+            @Override
+            public void onResponse(Call<EventWrapper> call, Response<EventWrapper> response) {
+                Log.d(TAG, "onResponse: " + " TRESPONSEE");
+
+                if (response.isSuccessful()) {
+
+                    Log.d(TAG, "retrofitjobCall: "+ response.body().get_embedded().getEvents().toString());
+//                    events.addAll(response.body().get_embedded().getEvents());
+//                    recyclerView.setAdapter(eventsAdapter);
+
+                    //ToDo: Add database code
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<EventWrapper> call, Throwable t) {
+
+                t.printStackTrace();
+            }
+        });
+
+        return true;
     }
 
     @Override
