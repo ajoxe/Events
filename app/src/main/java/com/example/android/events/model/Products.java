@@ -1,12 +1,12 @@
 package com.example.android.events.model;
 
-import android.arch.persistence.room.Entity;
+
 
 /**
  * Created by melg on 2/4/18.
  */
-@Entity
-class Products {
+
+public class Products {
 
 
     private String name;

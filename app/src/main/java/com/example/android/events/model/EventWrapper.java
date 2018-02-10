@@ -7,13 +7,14 @@ import java.util.List;
  */
 
 public class EventWrapper {
+
     private Embedded _embedded;
 
-    public Embedded get_embedded() {
+    public Embedded getEmbedded() {
         return _embedded;
     }
 
-    public void set_embedded(Embedded _embedded) {
+    public void setEmbedded(Embedded _embedded) {
         this._embedded = _embedded;
     }
 }

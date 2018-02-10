@@ -1,11 +1,16 @@
 package com.example.android.events.model;
 
 
+
+import android.arch.persistence.room.Embedded;
+
 public class Dates {
 
     private boolean spanMultipleDays;
+    @Embedded
     private Status status;
     private String timezone;
+    @Embedded
     private Start start;
 
     public boolean getSpanMultipleDays() {

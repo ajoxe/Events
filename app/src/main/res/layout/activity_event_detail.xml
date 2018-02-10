@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.android.events.EventDetailActivity"
+    android:padding="15dp">
+
+
+    <TextView
+        android:id="@+id/dt_event_name"
+        android:text="Event Name"
+        android:textSize="14dp"
+        android:textColor="@android:color/black"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <ImageView
+        android:id="@+id/dt_event_image"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:padding="5dp"/>
+
+    <TextView
+        android:id="@+id/dt_event_info"
+        android:text="info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/dt_event_prices"
+        android:text="prices"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+
+    <TextView
+        android:id="@+id/seating_chart"
+        android:text="seating chart"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/dt_event_location"
+        android:text="location"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/dt_event_venue_name"
+        android:text="Venue name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/dt_venue_link"
+        android:layout_width="match_parent"
+        android:text="venueLink"
+        android:layout_height="wrap_content" />
+
+
+</LinearLayout>
