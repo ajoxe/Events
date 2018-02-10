@@ -16,48 +16,34 @@ import com.example.android.events.R;
 
 public class EventsNotificationJob {
 
-    private String title, description;
-    private int NOTIFICATION_ID = 555;
+    private static final int NOTIFICATION_ID = 555;
     private Context context;
-    private Intent intent ;
-    private int requestID ;
-    private int flags;
     private PendingIntent pendingIntent;
-    private Notification notification;
     private NotificationManager notificationManager;
 
-    public EventsNotificationJob(String title, String description, Context context){
+    public EventsNotificationJob(String title, String description, Context context) {
         this.context = context;
-        this.title = title;
-        this.description = description;
         initClass();
-        initNot(title,description);
+        initNot(title, description);
     }
-
-
 
     public void initClass() {
-        intent = new Intent(context, MainActivity.class);
-        requestID = (int) System.currentTimeMillis();
-        flags = PendingIntent.FLAG_CANCEL_CURRENT;
+        Intent intent = new Intent(context, MainActivity.class);
+        int requestID = (int) System.currentTimeMillis();
+        int flags = PendingIntent.FLAG_CANCEL_CURRENT;
         pendingIntent = PendingIntent.getActivity(context, requestID, intent, flags);
         notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-
     }
 
-
-
     public void initNot(String title, String description) {
-        notification = new NotificationCompat.Builder(context)
+        Notification notification = new NotificationCompat.Builder(context)
                 .setSmallIcon(R.mipmap.ic_icon)
                 .setContentTitle(title)
                 .setContentText(description)
                 .setContentIntent(pendingIntent)
                 .setAutoCancel(true)
                 .build();
-
         notificationManager.notify(NOTIFICATION_ID, notification);
-
     }
 
 }

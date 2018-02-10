@@ -18,19 +18,18 @@ import retrofit2.Response;
 
 /**
  * Created by amirahoxendine on 2/9/18.
+ * This class is responsible for managing the database, and providing data to the main UI
  */
 
-public class DatabaseInitializer {
+public class EventsDataManager {
 
-    private static final String TAG = DatabaseInitializer.class.getName();
+    private static final String TAG = EventsDataManager.class.getName();
     public static EventsRoomDataUtility eventUtility = new EventsRoomDataUtility();
     public static List<Events> savedEventsList = new ArrayList<>();
     public static List<Events> eventsQuery;
     public static Events event;
 
-
-
-    public static void populateAsync(@NonNull final EventsDatabase db) {
+    public static void populateEventsDatabaseAsync(@NonNull final EventsDatabase db) {
         PopulateDbAsync task = new PopulateDbAsync(db);
         task.execute();
     }
@@ -40,59 +39,60 @@ public class DatabaseInitializer {
         updateTask.execute();
     }
 
-    public static List<Events> queryDb(@NonNull final EventsDatabase db){
+    public static List<Events> queryDb(@NonNull final EventsDatabase db) {
         QueryDbAsync listTask = new QueryDbAsync(db);
         listTask.execute();
         return eventsQuery;
     }
 
-    private static List<Events> getEventsFromDB(@NonNull final EventsDatabase db){
+    private static List<Events> getEventsFromDB(@NonNull final EventsDatabase db) {
         eventsQuery = eventUtility.entitiesToEvents(db.eventsDao().getAll());
         Log.d("get events", "eventsQuery size" + eventsQuery.size());
         return eventsQuery;
     }
+
     //checks to see if db is empty
-    private static int databasEntryCount(@NonNull final EventsDatabase db){
+    private static int databasEntryCount(@NonNull final EventsDatabase db) {
         return db.eventsDao().countEvents();
     }
 
-    private static Events getEventByIdAsync(@NonNull final EventsDatabase db, String id){
+    private static Events getEventByIdAsync(@NonNull final EventsDatabase db, String id) {
         return eventUtility.entityToEvents(db.eventsDao().findEventByID(id));
     }
 
-    public static Events getEventById(@NonNull final EventsDatabase db, String id){
-        QuerySingleEventAsync getEventTask = new QuerySingleEventAsync(db,id);
+    public static Events getEventById(@NonNull final EventsDatabase db, String id) {
+        QuerySingleEventAsync getEventTask = new QuerySingleEventAsync(db, id);
         getEventTask.execute();
         return event;
     }
 
-    public static void saveEvent(final EventsDatabase db, String id ){
+    public static void saveEvent(final EventsDatabase db, String id) {
         InsertSavedEventAsync savedAsync = new InsertSavedEventAsync(db, id);
         savedAsync.execute();
     }
 
-    public static void deleteEvent(final EventsDatabase db, String id){
-        DeleteSavedEventAsync deleteEventTask = new DeleteSavedEventAsync(db,id);
+    public static void deleteEvent(final EventsDatabase db, String id) {
+        DeleteSavedEventAsync deleteEventTask = new DeleteSavedEventAsync(db, id);
         deleteEventTask.execute();
     }
 
 
-    public static List<Events> getSavedEventsList(final EventsDatabase db){
+    public static List<Events> getSavedEventsList(final EventsDatabase db) {
         savedEventsList = eventUtility.entitiesToEvents(db.eventsDao().getSaved());
         return savedEventsList;
     }
 
 
     public static void getEventsFromNetwork(@NonNull final EventsDatabase db) {
-        doStuff(db, null);
+        makeEventResponseCall(db, null);
     }
 
-    public static void getEventsFromNetwork(@NonNull final EventsDatabase db, final RetrofitJob.JobFinishedListener listener){
+    public static void getEventsFromNetwork(@NonNull final EventsDatabase db, final RetrofitJob.JobFinishedListener listener) {
         Log.d(TAG, "retrofit job: " + " database entry count" + databasEntryCount(db));
-       doStuff(db, listener);
+        makeEventResponseCall(db, listener);
     }
 
-    private static void doStuff(@NonNull final EventsDatabase db, final RetrofitJob.JobFinishedListener listener){
+    private static void makeEventResponseCall(@NonNull final EventsDatabase db, final RetrofitJob.JobFinishedListener listener) {
         final List<Events> events = new ArrayList();
         Call<EventWrapper> getEventsDetails = RetroFitInstance.getInstance()
                 .getApi()
@@ -106,7 +106,7 @@ public class DatabaseInitializer {
                 if (response.isSuccessful()) {
                     events.addAll(response.body().getEmbedded().getEvents());
                     List<EventsRoomEntity> entities = eventUtility.eventsToEntity(events);
-                    if(databasEntryCount(db) != 0) {
+                    if (databasEntryCount(db) != 0) {
                         db.eventsDao().deleteAllEvents(db.eventsDao().getNotSaved());
                     }
                     db.eventsDao().insertAllEvents(entities);
@@ -116,7 +116,7 @@ public class DatabaseInitializer {
                     Log.d(TAG, "onResponse: " + " TRESPONSEE eventsQuery" + eventsQuery.size());
 
                     Log.d(TAG, "onResponse: " + " TRESPONSEE eventsQuery" + eventsQuery.size());
-                    if (listener!= null){
+                    if (listener != null) {
                         listener.callJobFinished();
                     }
                 }
@@ -125,7 +125,7 @@ public class DatabaseInitializer {
             @Override
             public void onFailure(Call<EventWrapper> call, Throwable t) {
 
-                if (listener!= null) {
+                if (listener != null) {
                     listener.callJobFinished();
                 }
                 t.printStackTrace();
@@ -146,12 +146,13 @@ public class DatabaseInitializer {
 
         @Override
         protected Void doInBackground(final Void... params) {
-            if (databasEntryCount(mDb) == 0){
+            if (databasEntryCount(mDb) == 0) {
                 getEventsFromNetwork(mDb);
             }
             return null;
         }
     }
+
     /*update the db with new retrofit call*/
     private static class UpdateDbAsync extends AsyncTask<Void, Void, Void> {
 
@@ -160,9 +161,10 @@ public class DatabaseInitializer {
         UpdateDbAsync(EventsDatabase db) {
             mDb = db;
         }
+
         @Override
         protected Void doInBackground(final Void... params) {
-                getEventsFromNetwork(mDb);
+            getEventsFromNetwork(mDb);
             return null;
         }
 
@@ -176,6 +178,7 @@ public class DatabaseInitializer {
         QueryDbAsync(EventsDatabase db) {
             mDb = db;
         }
+
         protected List<Events> doInBackground(Void... voids) {
             return getEventsFromDB(mDb);
         }
@@ -189,6 +192,7 @@ public class DatabaseInitializer {
         QuerySavedDbAsync(EventsDatabase db) {
             mDb = db;
         }
+
         protected List<Events> doInBackground(Void... voids) {
 
             return getSavedEventsList(mDb);
@@ -212,6 +216,7 @@ public class DatabaseInitializer {
             return event;
         }
     }
+
     /*save single event from to db asynchronously*/
     private static class InsertSavedEventAsync extends AsyncTask<Void, Void, Void> {
 
@@ -235,27 +240,26 @@ public class DatabaseInitializer {
         }
     }
 
-        /*delete single event from to db asynchronously*/
-        private static class DeleteSavedEventAsync extends AsyncTask<Void, Void, Void> {
+    /*delete single event from to db asynchronously*/
+    private static class DeleteSavedEventAsync extends AsyncTask<Void, Void, Void> {
 
-            private final EventsDatabase mDb;
-            private String id;
-            private Events event;
+        private final EventsDatabase mDb;
+        private String id;
+        private Events event;
 
-            DeleteSavedEventAsync(EventsDatabase db, String id) {
-                this.id = id;
-                mDb = db;
-            }
+        DeleteSavedEventAsync(EventsDatabase db, String id) {
+            this.id = id;
+            mDb = db;
+        }
 
-            @Override
-            protected Void doInBackground(Void... voids) {
-                event = eventUtility.getEventfromMap(eventUtility.eventsHashMap(eventsQuery), id);
-                savedEventsList.remove(event);
-                mDb.eventsDao().deleteEvent(mDb.eventsDao().findEventByID(id));
-                return null;
-            }
+        @Override
+        protected Void doInBackground(Void... voids) {
+            event = eventUtility.getEventfromMap(eventUtility.eventsHashMap(eventsQuery), id);
+            savedEventsList.remove(event);
+            mDb.eventsDao().deleteEvent(mDb.eventsDao().findEventByID(id));
+            return null;
+        }
     }
-
 
 
 }
