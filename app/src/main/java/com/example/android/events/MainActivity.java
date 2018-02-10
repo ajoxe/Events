@@ -21,25 +21,18 @@ public class MainActivity extends AppCompatActivity {
 
         DatabaseInitializer.populateAsync(EventsDatabase.getEventsDatabase(this));
         DatabaseInitializer.queryDb(EventsDatabase.getEventsDatabase(this));
-
-
     }
 
     public void nextClass(View view) {
-//        Intent i = new Intent(MainActivity.this, DbTestEventsListActivity.class);
-
-        // testing dataBase ^^^^^^
-
         Intent i = new Intent(MainActivity.this, EventsActivity.class);
-
         startActivity(i);
     }
 
     @Override
     protected void onDestroy() {
-//        EventsDatabase.destroyInstance();
+        EventsDatabase.destroyInstance();
         super.onDestroy();
     }
 
-    }
+}
 

@@ -9,8 +9,11 @@ import android.util.Log;
 import com.example.android.events.RetrofitInstance.RetroFitInstance;
 import com.example.android.events.model.EventWrapper;
 import com.example.android.events.model.Events;
+import com.example.android.events.roomdatabase.DatabaseInitializer;
+import com.example.android.events.roomdatabase.EventsDatabase;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -37,8 +40,10 @@ public class RetrofitJob extends JobService{
 
     @Override
     public boolean onStartJob(JobParameters params) {
-
-        Call<EventWrapper> getEventsDetails = RetroFitInstance.getInstance()
+        //ToDo: Add database code
+        //This method is already an async task
+        DatabaseInitializer.updateEventsJobAsync(EventsDatabase.getEventsDatabase(this));
+        /*Call<EventWrapper> getEventsDetails = RetroFitInstance.getInstance()
                 .getApi()
                 .getEventResponse("US");
         getEventsDetails.enqueue(new Callback<EventWrapper>() {
@@ -53,7 +58,11 @@ public class RetrofitJob extends JobService{
 //                    events.addAll(response.body().get_embedded().getEvents());
 //                    recyclerView.setAdapter(eventsAdapter);
 
-                    //ToDo: Add database code
+
+                    List<Events> events = new ArrayList<>();
+                    events.addAll(response.body().get_embedded().getEvents());
+
+
                 }
 
             }
@@ -63,7 +72,7 @@ public class RetrofitJob extends JobService{
 
                 t.printStackTrace();
             }
-        });
+        });*/
 
         return true;
     }
