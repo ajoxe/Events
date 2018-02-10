@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.example.android.events.jobs.JobScheduler;
 import com.example.android.events.roomdatabase.DatabaseInitializer;
 import com.example.android.events.roomdatabase.EventsDatabase;
 
@@ -17,10 +18,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+        JobScheduler.start(getApplicationContext());
         logoImage = findViewById(R.id.logo_image);
 
         DatabaseInitializer.populateAsync(EventsDatabase.getEventsDatabase(this));
         DatabaseInitializer.queryDb(EventsDatabase.getEventsDatabase(this));
+
+
     }
 
     public void nextClass(View view) {
