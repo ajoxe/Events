@@ -86,7 +86,7 @@ public class RetrofitJob extends JobService{
 
     @Override
     public boolean onStopJob(JobParameters params) {
-        EventsNotificationJob eventsNotificationJob = new EventsNotificationJob("Job Complete!", "Visit the app to check the current use of data",this);
+        EventsNotificationJob eventsNotificationJob = new EventsNotificationJob("Incoming!", "New events coming your way.",this);
         return false;
     }
 
