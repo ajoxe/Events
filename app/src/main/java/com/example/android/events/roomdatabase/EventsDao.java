@@ -4,8 +4,13 @@ import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
+import android.arch.persistence.room.Transaction;
+
+import com.example.android.events.model.Events;
 
 import java.util.List;
+
+import static android.arch.persistence.room.OnConflictStrategy.REPLACE;
 
 /**
  * Created by amirahoxendine on 2/7/18.
@@ -13,19 +18,22 @@ import java.util.List;
 @Dao
 public interface EventsDao {
 
-        @Query("SELECT * FROM events")
-        List<EventsWithImagesEntity> getAll();
+        @Transaction @Query("SELECT * FROM events")
+        List<EventsRoomEntity> getAll();
 
-        /*@Query("SELECT * FROM user where first_name LIKE  :firstName AND last_name LIKE :lastName")
-        User findByName(String firstName, String lastName);
+        @Insert(onConflict = REPLACE)
+        void insertEvent(EventsRoomEntity event);
 
-        @Query("SELECT COUNT(*) from user")
-        int countUsers();
+        @Insert(onConflict = REPLACE)
+        void insertAllEvents(EventsRoomEntity... events);
 
-        @Insert
-        void insertAll(User... users);
+        @Query("SELECT * FROM events where id LIKE  :id")
+        EventsRoomEntity findEventByID(String id);
 
         @Delete
-        void delete(User user);*/
+        void deleteEvent(EventsRoomEntity event);
+
+        @Query("SELECT COUNT(*) from events")
+        int countEvents();
 
 }

@@ -12,13 +12,52 @@ import java.util.List;
  */
 
 public class EventsRoomDataUtility {
-    Events event;
-   EventsRoomEntity eventEntity;
-   List<ImageRoomEntity> imageRoomEntityList;
+    //Events event;
+   //EventsRoomEntity eventEntity;
 
-    //Pojo -> Entity conversions
-    public EventsRoomEntity convertEventToEntity(Events event){
-        EventsRoomEntity eventEntity = new EventsRoomEntity();
+   public EventsRoomEntity eventToEntity(Events event, String status){
+       EventsRoomEntity eventEntity = new EventsRoomEntity();
+       eventEntity.setName(event.getName());
+       eventEntity.setType(event.getType());
+       eventEntity.setUrl(event.getUrl());
+       eventEntity.setLocale(event.getLocale());
+       eventEntity.setInfo(event.getInfo());
+       eventEntity.setPleaseNote(event.getPleaseNote());
+       eventEntity.setSeatmap(event.getSeatmap());
+       eventEntity.setDates(event.getDates());
+       eventEntity.setPriceRanges(event.getPriceRanges());
+       eventEntity.setProducts(event.getProducts());
+       eventEntity.setImages(event.getImages());
+       eventEntity.setClassifications(event.getClassifications());
+       eventEntity.set_embedded(event.get_embedded());
+       eventEntity.setStatus(status);
+       return eventEntity;
+   }
+
+    public Events entityToEvents(EventsRoomEntity eventsRoomEntity){
+        Events event = new Events();
+        event.setName(eventsRoomEntity.getName());
+        event.setType(eventsRoomEntity.getType());
+        event.setUrl(eventsRoomEntity.getUrl());
+        event.setLocale(eventsRoomEntity.getLocale());
+        event.setInfo(eventsRoomEntity.getInfo());
+        event.setPleaseNote(eventsRoomEntity.getPleaseNote());
+        event.setSeatmap(eventsRoomEntity.getSeatmap());
+        event.setDates(eventsRoomEntity.getDates());
+        event.setPriceRanges(eventsRoomEntity.getPriceRanges());
+        event.setProducts(eventsRoomEntity.getProducts());
+        event.setImages(eventsRoomEntity.getImages());
+        event.setClassifications(eventsRoomEntity.getClassifications());
+        event.set_embedded(eventsRoomEntity.get_embedded());
+        return event;
+    }
+
+
+   //List<ImageRoomEntity> imageRoomEntityList;
+
+   /* //Pojo -> Entity conversions
+    public com.example.android.events.roomdatabase.EventsRoomEntity convertEventToEntity(Events event){
+        com.example.android.events.roomdatabase.EventsRoomEntity eventEntity = new com.example.android.events.roomdatabase.EventsRoomEntity();
         eventEntity.setName(event.getName());
         eventEntity.setType(event.getType());
         eventEntity.setUrl(event.getUrl());
@@ -72,11 +111,11 @@ public class EventsRoomDataUtility {
         return imageRoomEntityList;
     }
     //Entity -> Pojo conversions
-    public Events convertEntityToEventsPojo(EventsRoomEntity eventEntity, ImageRoomEntity imageRoomEntity){
+    public Events convertEntityToEventsPojo(com.example.android.events.roomdatabase.EventsRoomEntity eventEntity, ImageRoomEntity imageRoomEntity){
         event = new Events();
 
 
         return event;
-    }
+    }*/
 
 }

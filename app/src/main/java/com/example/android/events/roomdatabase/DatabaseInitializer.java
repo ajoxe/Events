@@ -4,6 +4,8 @@ import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
+import com.example.android.events.model.Events;
+
 import java.util.List;
 
 /**
@@ -13,6 +15,7 @@ import java.util.List;
 public class DatabaseInitializer {
 
     private static final String TAG = DatabaseInitializer.class.getName();
+    public EventsRoomDataUtility eventUtility = new EventsRoomDataUtility();
 
     public static void populateAsync(@NonNull final EventsDatabase db) {
         PopulateDbAsync task = new PopulateDbAsync(db);
@@ -20,24 +23,21 @@ public class DatabaseInitializer {
     }
 
     public static void populateSync(@NonNull final EventsDatabase db) {
-        //populateWithTestData(db);
+        populateWithEventsData(db);
     }
 
-    /*private static EventsRoomEntity addEvent(final EventsDatabase db, EventsRoomEntity event) {
-        db.eventsDao().insertAll(event);
+    private static EventsRoomEntity addEvent(final EventsDatabase db, EventsRoomEntity event) {
+
+        db.eventsDao().insertEvent(event);
         return event;
     }
 
-    private static void populateWithTestData(EventsDatabase db) {
-        User user = new User();
-        user.setFirstName("Ajay");
-        user.setLastName("Saini");
-        user.setAge(25);
-        addUser(db, user);
+    private static void populateWithEventsData(EventsDatabase db) {
 
-        List<User> userList = db.userDao().getAll();
-        Log.d(DatabaseInitializer.TAG, "Rows Count: " + userList.size());
-    }*/
+
+        List<EventsRoomEntity> eventsList = db.eventsDao().getAll();
+        Log.d(DatabaseInitializer.TAG, "Rows Count: " + eventsList.size());
+    }
 
     private static class PopulateDbAsync extends AsyncTask<Void, Void, Void> {
 
@@ -49,7 +49,7 @@ public class DatabaseInitializer {
 
         @Override
         protected Void doInBackground(final Void... params) {
-            //populateWithTestData(mDb);
+            populateWithEventsData(mDb);
             return null;
         }
 
