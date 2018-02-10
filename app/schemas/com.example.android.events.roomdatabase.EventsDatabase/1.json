@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "4d598d7afcfd2c161b1116e745a110a4",
+    "identityHash": "0224718ac2a2d18829eb49f9cd68d724",
     "entities": [
       {
         "tableName": "events",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `id` TEXT, `status` TEXT, `pleaseNote` TEXT, `info` TEXT, `locale` TEXT, `url` TEXT, `type` TEXT, `name` TEXT, `images` TEXT, `products` TEXT, `priceRanges` TEXT, `classifications` TEXT, `_embedded` TEXT, `spanMultipleDays` INTEGER, `timezone` TEXT, `code` TEXT, `noSpecificTime` INTEGER, `timeTBA` INTEGER, `dateTBA` INTEGER, `dateTBD` INTEGER, `dateTime` TEXT, `localTime` TEXT, `localDate` TEXT, `staticUrl` TEXT)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `id` TEXT, `status` TEXT, `pleaseNote` TEXT, `info` TEXT, `locale` TEXT, `url` TEXT, `type` TEXT, `name` TEXT, `isSaved` INTEGER NOT NULL, `images` TEXT, `products` TEXT, `priceRanges` TEXT, `classifications` TEXT, `_embedded` TEXT, `spanMultipleDays` INTEGER, `timezone` TEXT, `code` TEXT, `noSpecificTime` INTEGER, `timeTBA` INTEGER, `dateTBA` INTEGER, `dateTBD` INTEGER, `dateTime` TEXT, `localTime` TEXT, `localDate` TEXT, `staticUrl` TEXT)",
         "fields": [
           {
             "fieldPath": "uid",
@@ -61,6 +61,12 @@
             "columnName": "name",
             "affinity": "TEXT",
             "notNull": false
+          },
+          {
+            "fieldPath": "isSaved",
+            "columnName": "isSaved",
+            "affinity": "INTEGER",
+            "notNull": true
           },
           {
             "fieldPath": "images",
@@ -171,7 +177,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"4d598d7afcfd2c161b1116e745a110a4\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"0224718ac2a2d18829eb49f9cd68d724\")"
     ]
   }
 }
