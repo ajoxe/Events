@@ -6,6 +6,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.NotificationCompat;
+import android.util.EventLog;
 
 import com.example.android.events.MainActivity;
 import com.example.android.events.R;
@@ -26,14 +27,31 @@ public class EventsNotificationJob {
     private Notification notification;
     private NotificationManager notificationManager;
 
-    public EventsNotificationJob(String title, String description, Context context){
-        this.context = context;
+//    public EventsNotificationJob(String title, String description, Context context){
+//        this.context = context;
+//        this.title = title;
+//        this.description = description;
+//        initClass();
+//        initNot();
+//    }
+
+    public void createNot(){
+        if(title!=null&&description!=null&&context!=null){
+            initClass();
+            initNot();
+        }
+    }
+    public void setTitle(String title){
         this.title = title;
-        this.description = description;
-        initClass();
-        initNot(title,description);
     }
 
+    public void setDescription(String description){
+        this.description = description;
+    }
+
+    public void setContext(Context context){
+        this.context = context;
+    }
 
 
     public void initClass() {
@@ -47,7 +65,7 @@ public class EventsNotificationJob {
 
 
 
-    public void initNot(String title, String description) {
+    public void initNot() {
         notification = new NotificationCompat.Builder(context)
                 .setSmallIcon(R.mipmap.ic_icon)
                 .setContentTitle(title)

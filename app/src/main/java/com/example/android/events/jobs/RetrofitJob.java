@@ -5,6 +5,7 @@ import android.app.job.JobService;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.example.android.events.RetrofitInstance.RetroFitInstance;
 import com.example.android.events.model.EventWrapper;
@@ -28,7 +29,7 @@ import static java.util.Collections.addAll;
 
 public class RetrofitJob extends JobService{
 
-
+    private EventsNotificationJob eventsNotificationJob = new EventsNotificationJob();
     private Handler handler = new Handler(new Handler.Callback() {
 
         @Override
@@ -41,7 +42,7 @@ public class RetrofitJob extends JobService{
     @Override
     public boolean onStartJob(final JobParameters params) {
         //ToDo: Add database code
-
+        Toast.makeText(this,"Job started", Toast.LENGTH_LONG);
         DatabaseInitializer.getEventsFromNetwork(EventsDatabase.getEventsDatabase(this), new JobFinishedListener(){
             @Override
             public void callJobFinished() {
@@ -86,7 +87,10 @@ public class RetrofitJob extends JobService{
 
     @Override
     public boolean onStopJob(JobParameters params) {
-        EventsNotificationJob eventsNotificationJob = new EventsNotificationJob("Job Complete!", "Visit the app to check the current use of data",this);
+        eventsNotificationJob.setTitle("New events have been located!");
+        eventsNotificationJob.setDescription("Come out and check out the new events available to you. Try something new with us!");
+        eventsNotificationJob.setContext(this);
+        eventsNotificationJob.createNot();
         return false;
     }
 
