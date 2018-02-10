@@ -4,57 +4,127 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_gravity="center"
     android:orientation="vertical"
-    tools:context="com.example.android.events.EventDetailActivity"
-    android:padding="15dp">
+    android:padding="10dp"
+    tools:context="com.example.android.events.EventDetailActivity">
 
 
     <TextView
         android:id="@+id/dt_event_name"
-        android:text="Event Name"
-        android:textSize="14dp"
-        android:textColor="@android:color/black"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:text="Event Name"
+        android:textAllCaps="true"
+        android:textColor="@android:color/black"
+        android:textSize="17dp"
+        android:textStyle="bold" />
 
     <ImageView
         android:id="@+id/dt_event_image"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:padding="5dp"/>
+        android:layout_height="170dp"
+        android:padding="10dp" />
 
     <TextView
-        android:id="@+id/dt_event_info"
-        android:text="info"
+        android:id="@+id/event_date"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:text="Date "
+        android:textColor="@android:color/black"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/dt_event_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="time"
+        android:textColor="@android:color/black"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
     <TextView
         android:id="@+id/dt_event_prices"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:text="prices"
+        android:textColor="@android:color/black"
+        android:textSize="16sp"
+        android:textStyle="bold"/>
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:padding="25dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
 
-    <TextView
-        android:id="@+id/seating_chart"
-        android:text="seating chart"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-    <TextView
-        android:id="@+id/dt_event_location"
-        android:text="location"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-    <TextView
-        android:id="@+id/dt_event_venue_name"
-        android:text="Venue name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-    <TextView
-        android:id="@+id/dt_venue_link"
-        android:layout_width="match_parent"
-        android:text="venueLink"
-        android:layout_height="wrap_content" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/black"
+                android:text="Venue:"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/dt_event_venue_name"
+                android:layout_width="match_parent"
+                android:textColor="@android:color/black"
+                android:layout_height="wrap_content"
+                android:text="Venue name"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/dt_venue_link"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:paddingBottom="10dp"
+                android:text="Link to Venue Details"
+                android:onClick="venueOnClick"
+                android:textColor="@android:color/holo_blue_light" />
+
+            <TextView
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:text="Check out the Seating Chart:"
+                android:textSize="15dp"
+                android:textColor="@android:color/black"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/seating_chart"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:onClick="seatingChartOnClick"
+                android:paddingBottom="5dp"
+                android:textColor="@android:color/holo_blue_light"
+                android:text="Link to Seating Chart" />
+
+
+        </LinearLayout>
+
+
+    </ScrollView>
+
+    <Button
+        android:id="@+id/buy_now"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@drawable/roundedshape"
+        android:onClick="onClick"
+        android:text="buy now"
+        android:textColor="@android:color/white" />
 
 
 </LinearLayout>
