@@ -11,25 +11,25 @@
         android:id="@+id/logo_image"
         android:layout_width="270dp"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/next_button"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="98dp"
+        android:layout_marginTop="76dp"
         android:src="@drawable/eventologo" />
 
     <Button
         android:id="@+id/next_button"
-        android:layout_width="130dp"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:textColor="@android:color/white"
-        android:textAllCaps="false"
-        android:background="@drawable/roundedshape"
+
         android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginBottom="24dp"
-        android:layout_marginEnd="37dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="49dp"
+        android:background="@drawable/roundedshape"
         android:gravity="center"
         android:onClick="nextClass"
-        android:text="Find events "/>
+        android:text="Find events "
+        android:textAllCaps="false"
+        android:textColor="@android:color/white" />
 
 
 
