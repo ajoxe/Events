@@ -15,7 +15,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp"
+    android:padding="10dp"
     >
 <LinearLayout
     android:layout_width="match_parent"
@@ -27,6 +27,8 @@
         android:id="@+id/event_name"
         android:textSize="16sp"
         android:textStyle="bold"
+        android:textAllCaps="true"
+        android:textColor="@android:color/black"
         android:text="event name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -46,11 +48,13 @@
         android:text="date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textStyle="bold"
         android:padding="3dp"/>
 
     <TextView
         android:id="@+id/event_time"
         android:text="time"
+        android:textStyle="bold"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="3dp"/>
@@ -60,11 +64,14 @@
         android:text="price"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textStyle="bold"
         android:padding="3dp"/>
 
     <Button
         android:id="@+id/moreInfo"
         android:text="info"
+        android:textColor="@android:color/white"
+        android:background="@drawable/roundedshape"
         android:layout_gravity="right"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />

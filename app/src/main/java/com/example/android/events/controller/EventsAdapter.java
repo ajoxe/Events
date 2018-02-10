@@ -108,9 +108,9 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventsList
 
 
             name.setText(event.getName());
-            price.setText(min + " - " + max + " " + currencyType);
-            date.setText(dateformated);
-            eventTime.setText(timeParsed);
+            price.setText("Price: "+"$"+(int) min + " - " +"$"+ (int) max + " " + currencyType);
+            date.setText("Date: "+ dateformated);
+            eventTime.setText("Time: "+ timeParsed);
 
         }
 
