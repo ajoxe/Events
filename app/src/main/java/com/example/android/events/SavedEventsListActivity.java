@@ -33,7 +33,7 @@ public class SavedEventsListActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.list_events);
-        events = EventsDataManager.savedEventsList;
+        events = EventsDataManager.getSavedEventsList(EventsDatabase.getEventsDatabase(getApplicationContext()));
         context = getApplicationContext();
         setRecyclerView();
     }
@@ -75,7 +75,11 @@ public class SavedEventsListActivity extends AppCompatActivity {
                     eventsAdapter.notifyDataSetChanged();
                     Log.d(TAG, "event saved");
                 } else if(!checkbox.isChecked()){
+
                     eventUtility.getEventfromMap(eventUtility.eventsHashMap(events), id).setSaved(false);
+                    Events event = eventUtility.getEventfromMap(eventUtility.eventsHashMap(events), id);
+
+                    events.remove(event);
                     EventsDataManager.deleteEvent(EventsDatabase.getEventsDatabase(context), id);
                     eventsAdapter.notifyDataSetChanged();
                     Log.d(TAG, "event deleted");
