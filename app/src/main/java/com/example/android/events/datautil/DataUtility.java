@@ -1,10 +1,13 @@
 package com.example.android.events.datautil;
 
+import com.example.android.events.model.PriceRanges;
+
 import java.text.DateFormat;
 import java.text.Format;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
 
@@ -61,6 +64,8 @@ public class DataUtility {
 
 
     }
+
+
 
 }
 

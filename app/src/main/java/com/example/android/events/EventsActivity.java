@@ -44,10 +44,10 @@ public class EventsActivity extends AppCompatActivity {
         setContentView(R.layout.list_events);
         context = getApplicationContext();
 
-        init();
+        setRecyclerView();
     }
 
-    public void init(){
+    public void setRecyclerView(){
         recyclerView = findViewById(R.id.rec_view);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(linearLayoutManager);
