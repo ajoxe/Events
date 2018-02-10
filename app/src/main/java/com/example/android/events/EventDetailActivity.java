@@ -32,6 +32,7 @@ public class EventDetailActivity extends AppCompatActivity {
 
 
         setViews();
+        dataBinding();
 
 
     }

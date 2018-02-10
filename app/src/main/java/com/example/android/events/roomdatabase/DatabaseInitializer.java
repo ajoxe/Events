@@ -24,17 +24,10 @@ public class DatabaseInitializer {
 
     private static final String TAG = DatabaseInitializer.class.getName();
     public static EventsRoomDataUtility eventUtility = new EventsRoomDataUtility();
-    private static List<Events> eventsList = new ArrayList<>();
+    public static List<Events> savedEventsList = new ArrayList<>();
     public static List<Events> eventsQuery;
     public static Events event;
 
-    public static List<Events> getEventsList() {
-        return eventsList;
-    }
-
-    public static void setEventsList(List<Events> eventsList) {
-        DatabaseInitializer.eventsList = eventsList;
-    }
 
 
     public static void populateAsync(@NonNull final EventsDatabase db) {
@@ -63,7 +56,7 @@ public class DatabaseInitializer {
         return db.eventsDao().countEvents();
     }
 
-    public static Events getEventByIdAsync(@NonNull final EventsDatabase db, String id){
+    private static Events getEventByIdAsync(@NonNull final EventsDatabase db, String id){
         return eventUtility.entityToEvents(db.eventsDao().findEventByID(id));
     }
 
@@ -73,23 +66,30 @@ public class DatabaseInitializer {
         return event;
     }
 
-    /*private static void addEvent(final EventsDatabase db, EventsRoomEntity event) {
-        db.eventsDao().insertEvent(event);
+    private static void saveEventAsync(final EventsDatabase db, Events event ) {
+        savedEventsList.add(event);
+        EventsRoomEntity eventEntity = eventUtility.eventToEntity(event, "saved");
+        db.eventsDao().insertEvent(eventEntity);
     }
 
-    public static List<Events> queryEvents(List<Events> events){
-        return events;
-    }*/
+    public static void saveEvent(final EventsDatabase db, Events event ){
+        InsertSavedEventAsync savedAsync = new InsertSavedEventAsync(db, event);
+        savedAsync.execute();
+    }
+
+
+    public static List<Events> getSavedEventsList(final EventsDatabase db){
+        savedEventsList = eventUtility.entitiesToEvents(db.eventsDao().getSaved());
+        return savedEventsList;
+    }
 
 
     public static void getEventsFromNetwork(@NonNull final EventsDatabase db) {
         doStuff(db, null);
-
     }
 
-
-
     public static void getEventsFromNetwork(@NonNull final EventsDatabase db, final RetrofitJob.JobFinishedListener listener){
+        Log.d(TAG, "retrofit job: " + " database entry count" + databasEntryCount(db));
        doStuff(db, listener);
     }
 
@@ -107,17 +107,20 @@ public class DatabaseInitializer {
                 if (response.isSuccessful()) {
                     events.addAll(response.body().getEmbedded().getEvents());
                     List<EventsRoomEntity> entities = eventUtility.eventsToEntity(events);
+                    if(databasEntryCount(db) != 0) {
+                        db.eventsDao().deleteAllEvents(db.eventsDao().getNotSaved());
+                    }
                     db.eventsDao().insertAllEvents(entities);
                     eventsQuery = eventUtility.entitiesToEvents(db.eventsDao().getAll());
 
                     Log.d(TAG, "onResponse: " + " TRESPONSEE response size" + events.size());
-                    Log.d(TAG, "onResponse: " + " TRESPONSEE eventsList" + eventsQuery.size());
+                    Log.d(TAG, "onResponse: " + " TRESPONSEE eventsQuery" + eventsQuery.size());
+
+                    Log.d(TAG, "onResponse: " + " TRESPONSEE eventsQuery" + eventsQuery.size());
                     if (listener!= null){
                         listener.callJobFinished();
-
                     }
                 }
-
             }
 
             @Override
@@ -174,45 +177,60 @@ public class DatabaseInitializer {
         QueryDbAsync(EventsDatabase db) {
             mDb = db;
         }
-
-
         protected List<Events> doInBackground(Void... voids) {
             return getEventsFromDB(mDb);
         }
-
-
-        /*@Override
-        protected void onPostExecute(List<Events> result){
-            eventsQuery = new ArrayList<>();
-            eventsQuery.addAll(result);
-            Log.d(TAG, "query async: " + "response" + eventsQuery.size());
-        }*/
     }
 
+    /*get saved events from the db asynchronously*/
+    private static class QuerySavedDbAsync extends AsyncTask<Void, Void, List<Events>> {
+
+        private final EventsDatabase mDb;
+
+        QuerySavedDbAsync(EventsDatabase db) {
+            mDb = db;
+        }
+        protected List<Events> doInBackground(Void... voids) {
+
+            return getSavedEventsList(mDb);
+        }
+    }
+
+    /*get single event from the db asynchronously*/
     private static class QuerySingleEventAsync extends AsyncTask<Void, Void, Events> {
 
         private final EventsDatabase mDb;
         private String id;
+
         QuerySingleEventAsync(EventsDatabase db, String id) {
             this.id = id;
             mDb = db;
         }
-
-
 
         @Override
         protected Events doInBackground(Void... voids) {
             event = getEventByIdAsync(mDb, id);
             return event;
         }
-
-
-        /*@Override
-        protected void onPostExecute(List<Events> result){
-            eventsQuery = new ArrayList<>();
-            eventsQuery.addAll(result);
-            Log.d(TAG, "query async: " + "response" + eventsQuery.size());
-        }*/
     }
+    /*save single event from to db asynchronously*/
+    private static class InsertSavedEventAsync extends AsyncTask<Void, Void, Void> {
+
+        private final EventsDatabase mDb;
+        private Events event;
+
+        InsertSavedEventAsync(EventsDatabase db, Events event) {
+            this.event = event;
+            mDb = db;
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            saveEventAsync(mDb, event);
+            return null;
+        }
+    }
+
+
 
 }

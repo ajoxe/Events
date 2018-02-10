@@ -5,6 +5,7 @@ import com.example.android.events.model.Events;
 import com.example.android.events.model.Images;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -56,7 +57,7 @@ public class EventsRoomDataUtility {
     public List<EventsRoomEntity> eventsToEntity(List<Events> events){
         List<EventsRoomEntity> entities = new ArrayList<>();
         for (Events event : events){
-            EventsRoomEntity entity = eventToEntity(event, "not saved");
+            EventsRoomEntity entity = eventToEntity(event, "not_saved");
             entities.add(entity);
         }
         return entities;
@@ -69,6 +70,18 @@ public class EventsRoomDataUtility {
             events.add(event);
         }
         return events;
+    }
+
+    public HashMap<String, Events> eventsHashMap(List<Events> events){
+        HashMap<String, Events> eventsHashMap = new HashMap<>();
+        for( Events event : events){
+            eventsHashMap.put(event.getId(), event);
+        }
+        return eventsHashMap;
+    }
+
+    public Events getEventfromMap(HashMap<String, Events> eventsHashMap, String id){
+        return eventsHashMap.get(id);
     }
 
 }

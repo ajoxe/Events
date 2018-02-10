@@ -30,8 +30,17 @@ public interface EventsDao {
         @Query("SELECT * FROM events where id LIKE  :id")
         EventsRoomEntity findEventByID(String id);
 
+        @Query("SELECT * FROM events where status LIKE  'saved'")
+        List<EventsRoomEntity> getSaved();
+
+        @Query("SELECT * FROM events where status LIKE  'not_saved'")
+        List<EventsRoomEntity> getNotSaved();
+
         @Delete
         void deleteEvent(EventsRoomEntity event);
+
+        @Delete
+        void deleteAllEvents(List<EventsRoomEntity> unsavedEntities);
 
         @Query("SELECT COUNT(*) from events")
         int countEvents();
