@@ -51,13 +51,7 @@
         android:textStyle="bold"
         android:padding="3dp"/>
 
-    <TextView
-        android:id="@+id/event_time"
-        android:text="time"
-        android:textStyle="bold"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="3dp"/>
+
 
     <TextView
         android:id="@+id/price"
@@ -66,6 +60,25 @@
         android:layout_height="wrap_content"
         android:textStyle="bold"
         android:padding="3dp"/>
+    <TextView
+        android:id="@+id/event_time"
+        android:text="time"
+        android:textStyle="bold"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="3dp"/>
+
+
+    <TextView
+        android:id="@+id/it_venue_name"
+        android:text="venue"
+        android:textStyle="bold"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="3dp"/>
+
+
+
 
     <Button
         android:id="@+id/moreInfo"

@@ -69,6 +69,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventsList
         private String dateformated;
         private String timeZone;
         private TextView eventTime;
+        private TextView venue;
 
 
         public EventsListViewHolder(View itemView) {
@@ -80,6 +81,8 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventsList
             moreInfoButton = itemView.findViewById(R.id.moreInfo);
             checkBox = itemView.findViewById(R.id.fav_box);
             eventTime = itemView.findViewById(R.id.event_time);
+            venue = itemView.findViewById(R.id.it_venue_name);
+
         }
 
 
@@ -116,6 +119,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventsList
             price.setText("Price: "+"$"+(int) min + " - " +"$"+ (int) max + " " + currencyType);
             date.setText("Date: "+ dateformated);
             eventTime.setText("Time: "+ timeParsed);
+            venue.setText("Venue: "+ event.get_embedded().getVenues().get(0).getName());
 
 
         }
