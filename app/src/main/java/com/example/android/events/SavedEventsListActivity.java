@@ -13,14 +13,14 @@ import android.widget.CheckBox;
 
 import com.example.android.events.controller.EventsAdapter;
 import com.example.android.events.model.Events;
-import com.example.android.events.roomdatabase.DatabaseInitializer;
+import com.example.android.events.roomdatabase.EventsDataManager;
 import com.example.android.events.roomdatabase.EventsDatabase;
 import com.example.android.events.roomdatabase.EventsRoomDataUtility;
 
 import java.util.List;
 
 public class SavedEventsListActivity extends AppCompatActivity {
-    List<Events> events = DatabaseInitializer.savedEventsList;
+    List<Events> events = EventsDataManager.savedEventsList;
     EventsRoomDataUtility eventUtility = new EventsRoomDataUtility();
     public String TAG = EventsActivity.class.getSimpleName();
     RecyclerView recyclerView;
@@ -33,7 +33,7 @@ public class SavedEventsListActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.list_events);
-        events = DatabaseInitializer.savedEventsList;
+        events = EventsDataManager.savedEventsList;
         context = getApplicationContext();
         setRecyclerView();
     }
@@ -55,7 +55,7 @@ public class SavedEventsListActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String id = v.getTag().toString();
-                DatabaseInitializer.getEventById(EventsDatabase.getEventsDatabase(context),id);
+                EventsDataManager.getEventById(EventsDatabase.getEventsDatabase(context),id);
                 Intent detailIntent = new Intent(SavedEventsListActivity.this, EventDetailActivity.class);
                 startActivity(detailIntent);
             }
@@ -70,13 +70,13 @@ public class SavedEventsListActivity extends AppCompatActivity {
                 CheckBox checkbox = (CheckBox) v.findViewWithTag(id);
 
                 if(checkbox.isChecked()) {
-                    DatabaseInitializer.saveEvent(EventsDatabase.getEventsDatabase(context), id);
+                    EventsDataManager.saveEvent(EventsDatabase.getEventsDatabase(context), id);
                     eventUtility.getEventfromMap(eventUtility.eventsHashMap(events), id).setSaved(true);
                     eventsAdapter.notifyDataSetChanged();
                     Log.d(TAG, "event saved");
                 } else if(!checkbox.isChecked()){
                     eventUtility.getEventfromMap(eventUtility.eventsHashMap(events), id).setSaved(false);
-                    DatabaseInitializer.deleteEvent(EventsDatabase.getEventsDatabase(context), id);
+                    EventsDataManager.deleteEvent(EventsDatabase.getEventsDatabase(context), id);
                     eventsAdapter.notifyDataSetChanged();
                     Log.d(TAG, "event deleted");
                 }

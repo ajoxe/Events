@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 import com.example.android.events.datautil.DataUtility;
 import com.example.android.events.model.Events;
-import com.example.android.events.roomdatabase.DatabaseInitializer;
+import com.example.android.events.roomdatabase.EventsDataManager;
 import com.squareup.picasso.Picasso;
 
 
@@ -45,7 +45,7 @@ public class EventDetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_detail);
-        event = DatabaseInitializer.event;
+        event = EventsDataManager.event;
         setViews();
         dataBinding();
 
