@@ -75,7 +75,11 @@ public class SavedEventsListActivity extends AppCompatActivity {
                     eventsAdapter.notifyDataSetChanged();
                     Log.d(TAG, "event saved");
                 } else if(!checkbox.isChecked()){
+
                     eventUtility.getEventfromMap(eventUtility.eventsHashMap(events), id).setSaved(false);
+                    Events event = eventUtility.getEventfromMap(eventUtility.eventsHashMap(events), id);
+
+                    events.remove(event);
                     EventsDataManager.deleteEvent(EventsDatabase.getEventsDatabase(context), id);
                     eventsAdapter.notifyDataSetChanged();
                     Log.d(TAG, "event deleted");
