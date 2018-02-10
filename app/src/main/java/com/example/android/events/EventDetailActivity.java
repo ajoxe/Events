@@ -2,12 +2,9 @@ package com.example.android.events;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-<<<<<<< Updated upstream
-import android.util.Log;
-=======
 import android.widget.ImageView;
 import android.widget.TextView;
->>>>>>> Stashed changes
+
 
 import com.example.android.events.model.Events;
 import com.example.android.events.roomdatabase.DatabaseInitializer;
