@@ -21,7 +21,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void nextClass(View view) {
+<<<<<<< Updated upstream
         Intent i = new Intent(MainActivity.this, DbTestEventsListActivity.class);
+=======
+        Intent i = new Intent(MainActivity.this, EventsActivity.class);
+>>>>>>> Stashed changes
         startActivity(i);
     }
 

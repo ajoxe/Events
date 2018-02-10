@@ -24,7 +24,7 @@ import retrofit2.Response;
  * Created by melg on 2/6/18.
  */
 
-public class EventsList extends AppCompatActivity {
+public class EventsActivity extends AppCompatActivity {
     List<Events> events = new ArrayList();
     String name;
     String price;
