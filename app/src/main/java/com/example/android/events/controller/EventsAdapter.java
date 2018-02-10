@@ -27,12 +27,14 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventsList
     View view;
     DataUtility dataUtility = new DataUtility();
     View.OnClickListener infoClick;
+    View.OnClickListener savedClick;
 
 
-    public EventsAdapter(List<Events> myEvents, Context context, View.OnClickListener infoClick) {
+    public EventsAdapter(List<Events> myEvents, Context context, View.OnClickListener infoClick, View.OnClickListener savedClick) {
         this.events = myEvents;
         this.context = context;
         this.infoClick = infoClick;
+        this.savedClick = savedClick;
 
     }
 
@@ -90,6 +92,8 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventsList
             moreInfoButton.setTag(event.getId());
             Log.d("adapter", "info tag " + event.getId());
             moreInfoButton.setOnClickListener(infoClick);
+            checkBox.setTag(event.getId());
+            checkBox.setOnClickListener(savedClick);
 
             for (int i = 0; i < event.getPriceRanges().size(); i++) {
                 max = event.getPriceRanges().get(i).getMax();

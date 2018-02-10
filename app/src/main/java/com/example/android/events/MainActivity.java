@@ -33,6 +33,11 @@ public class MainActivity extends AppCompatActivity {
         startActivity(i);
     }
 
+    public void savedClass(View view) {
+        Intent s = new Intent(MainActivity.this, SavedEventsListActivity.class);
+        startActivity(s);
+    }
+
     @Override
     protected void onDestroy() {
         EventsDatabase.destroyInstance();
