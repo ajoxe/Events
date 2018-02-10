@@ -39,10 +39,17 @@ public class RetrofitJob extends JobService{
 
 
     @Override
-    public boolean onStartJob(JobParameters params) {
+    public boolean onStartJob(final JobParameters params) {
         //ToDo: Add database code
-        //This method is already an async task
-        DatabaseInitializer.updateEventsJobAsync(EventsDatabase.getEventsDatabase(this));
+
+        DatabaseInitializer.getEventsFromNetwork(EventsDatabase.getEventsDatabase(this), new JobFinishedListener(){
+            @Override
+            public void callJobFinished() {
+                jobFinished(params, true);
+            }
+        });
+
+
         /*Call<EventWrapper> getEventsDetails = RetroFitInstance.getInstance()
                 .getApi()
                 .getEventResponse("US");
@@ -54,13 +61,13 @@ public class RetrofitJob extends JobService{
 
                 if (response.isSuccessful()) {
 
-                    Log.d(TAG, "retrofitjobCall: "+ response.body().get_embedded().getEvents().toString());
-//                    events.addAll(response.body().get_embedded().getEvents());
+                    Log.d(TAG, "retrofitjobCall: "+ response.body().getEmbedded().getEvents().toString());
+//                    events.addAll(response.body().getEmbedded().getEvents());
 //                    recyclerView.setAdapter(eventsAdapter);
 
 
                     List<Events> events = new ArrayList<>();
-                    events.addAll(response.body().get_embedded().getEvents());
+                    events.addAll(response.body().getEmbedded().getEvents());
 
 
                 }
@@ -82,4 +89,9 @@ public class RetrofitJob extends JobService{
         EventsNotificationJob eventsNotificationJob = new EventsNotificationJob("Job Complete!", "Visit the app to check the current use of data",this);
         return false;
     }
+
+    public interface JobFinishedListener {
+        void callJobFinished();
+    }
+
 }

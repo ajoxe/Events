@@ -2,6 +2,7 @@ package com.example.android.events.controller;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,12 +26,13 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventsList
     Context context;
     View view;
     DataUtility dataUtility = new DataUtility();
-    String eventTim;
+    View.OnClickListener infoClick;
 
 
-    public EventsAdapter(List<Events> myEvents, Context context) {
+    public EventsAdapter(List<Events> myEvents, Context context, View.OnClickListener infoClick) {
         this.events = myEvents;
         this.context = context;
+        this.infoClick = infoClick;
 
     }
 
@@ -85,7 +87,9 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventsList
             double max = 0;
             double min = 0;
             String currencyType = null;
-
+            moreInfoButton.setTag(event.getId());
+            Log.d("adapter", "info tag " + event.getId());
+            moreInfoButton.setOnClickListener(infoClick);
 
             for (int i = 0; i < event.getPriceRanges().size(); i++) {
                 max = event.getPriceRanges().get(i).getMax();
@@ -103,8 +107,6 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventsList
             price.setText(min + " - " + max + " " + currencyType);
             date.setText(dateformated);
             eventTime.setText(timeParsed);
-
-
 
         }
 
