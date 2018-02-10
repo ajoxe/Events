@@ -25,7 +25,7 @@ public class EventsDataManager {
 
     private static final String TAG = EventsDataManager.class.getName();
     public static EventsRoomDataUtility eventUtility = new EventsRoomDataUtility();
-    public static List<Events> savedEventsList = new ArrayList<>();
+    public static List<Events> savedEventsList;
     public static List<Events> eventsQuery;
     public static Events event;
 
@@ -231,11 +231,13 @@ public class EventsDataManager {
 
         @Override
         protected Void doInBackground(Void... voids) {
+            savedEventsList  = eventUtility.entitiesToEvents(mDb.eventsDao().getSaved());
             saveEvent = eventUtility.getEventfromMap(eventUtility.eventsHashMap(eventsQuery), id);
             saveEvent.setSaved(true);
             savedEventsList.add(saveEvent);
             EventsRoomEntity eventEntity = eventUtility.eventToEntity(saveEvent, "saved");
             mDb.eventsDao().insertEvent(eventEntity);
+            savedEventsList = eventUtility.entitiesToEvents(mDb.eventsDao().getSaved());
             return null;
         }
     }

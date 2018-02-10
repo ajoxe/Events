@@ -33,7 +33,7 @@ public class SavedEventsListActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.list_events);
-        events = EventsDataManager.savedEventsList;
+        events = EventsDataManager.getSavedEventsList(EventsDatabase.getEventsDatabase(getApplicationContext()));
         context = getApplicationContext();
         setRecyclerView();
     }
