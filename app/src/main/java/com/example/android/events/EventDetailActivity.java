@@ -7,13 +7,16 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.example.android.events.datautil.DataUtility;
 import com.example.android.events.model.Events;
 import com.example.android.events.roomdatabase.DatabaseInitializer;
 import com.squareup.picasso.Picasso;
+import com.yahoo.mobile.client.android.util.rangeseekbar.RangeSeekBar;
 
 public class EventDetailActivity extends AppCompatActivity {
 
@@ -34,8 +37,6 @@ public class EventDetailActivity extends AppCompatActivity {
     private String dateformated;
 
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,7 +46,12 @@ public class EventDetailActivity extends AppCompatActivity {
         dataBinding();
 
 
+
+
+
     }
+
+
 
     public void setViews() {
         event_name = findViewById(R.id.dt_event_name);
@@ -63,21 +69,20 @@ public class EventDetailActivity extends AppCompatActivity {
         event_venue_name.setText(event.get_embedded().getVenues().get(0).getName());
 
 
-
         for (int i = 0; i < event.getPriceRanges().size(); i++) {
             max = event.getPriceRanges().get(i).getMax();
             min = event.getPriceRanges().get(i).getMin();
             currencyType = event.getPriceRanges().get(i).getCurrency();
 
         }
-        event_prices.setText("Price Range: "+(int)min + " - " + (int)max + " " + currencyType);
+        event_prices.setText("Ticket Prices: " + "$"+ (int) min + " - " + "$"+ (int) max + " " + currencyType);
 
         timeZone = event.getDates().getTimezone();
         timeParsed = dataUtility.parseTime(event.getDates().getStart().getLocalTime(), timeZone);
         dateformated = dataUtility.parseDate(event.getDates().getStart().getLocalDate());
 
-        event_time.setText("Time: " + timeParsed);
-        event_date.setText("Date: " + dateformated);
+        event_time.setText(timeParsed);
+        event_date.setText(dateformated);
 
         Picasso.with(getApplicationContext())
                 .load(event.getImages().get(8)
@@ -85,24 +90,29 @@ public class EventDetailActivity extends AppCompatActivity {
                 .into(event_image);
 
 
-    } public void onClick(View view){
+    }
+
+    public void onClick(View view) {
         Uri uri = Uri.parse(event.getUrl()); // missing 'http://' will cause crashed
         Intent intent = new Intent(Intent.ACTION_VIEW, uri);
         startActivity(intent);
 
     }
-    public void venueOnClick(View view){
+
+    public void venueOnClick(View view) {
         Uri uri = Uri.parse(event.get_embedded().getVenues().get(0).getUrl()); // missing 'http://' will cause crashed
         Intent intent = new Intent(Intent.ACTION_VIEW, uri);
         startActivity(intent);
 
     }
-    public void seatingChartOnClick(View view){
+
+    public void seatingChartOnClick(View view) {
         Uri uri = Uri.parse(event.getSeatmap().getStaticUrl()); // missing 'http://' will cause crashed
         Intent intent = new Intent(Intent.ACTION_VIEW, uri);
         startActivity(intent);
 
     }
+
 
 
 }

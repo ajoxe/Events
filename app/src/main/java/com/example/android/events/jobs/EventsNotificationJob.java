@@ -49,7 +49,7 @@ public class EventsNotificationJob {
 
     public void initNot(String title, String description) {
         notification = new NotificationCompat.Builder(context)
-                .setSmallIcon(R.drawable.ic_launcher_background)
+                .setSmallIcon(R.mipmap.ic_icon)
                 .setContentTitle(title)
                 .setContentText(description)
                 .setContentIntent(pendingIntent)
