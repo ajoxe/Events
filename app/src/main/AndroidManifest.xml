@@ -22,12 +22,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-<<<<<<< Updated upstream
-        <activity android:name=".EventsList" />
+
+
         <activity android:name=".DbTestEventsListActivity"></activity>
-=======
+
         <activity android:name=".EventsActivity"/>
->>>>>>> Stashed changes
     </application>
 
 </manifest>
