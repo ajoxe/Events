@@ -7,13 +7,16 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+
 import android.widget.TextView;
+
 
 
 import com.example.android.events.datautil.DataUtility;
 import com.example.android.events.model.Events;
 import com.example.android.events.roomdatabase.EventsDataManager;
 import com.squareup.picasso.Picasso;
+
 
 public class EventDetailActivity extends AppCompatActivity {
 
@@ -25,6 +28,9 @@ public class EventDetailActivity extends AppCompatActivity {
     private TextView event_venue_name;
     private Button buynow;
     private TextView event_date;
+    private TextView venueAddress;
+
+
     DataUtility dataUtility = new DataUtility();
     private double min;
     private double max;
@@ -32,6 +38,7 @@ public class EventDetailActivity extends AppCompatActivity {
     private String timeZone;
     private String timeParsed;
     private String dateformated;
+
 
 
     @Override
@@ -57,6 +64,7 @@ public class EventDetailActivity extends AppCompatActivity {
         event_time = findViewById(R.id.dt_event_time);
         event_venue_name = findViewById(R.id.dt_event_venue_name);
         event_date = findViewById(R.id.event_date);
+        venueAddress = findViewById(R.id.dt_addressline);
         buynow = findViewById(R.id.buy_now);
     }
 
@@ -64,6 +72,11 @@ public class EventDetailActivity extends AppCompatActivity {
 
         event_name.setText(event.getName());
         event_venue_name.setText(event.get_embedded().getVenues().get(0).getName());
+
+        venueAddress.setText(event.get_embedded().getVenues().get(0).getAddress().getLine1()
+                +"\n"+event.get_embedded().getVenues().get(0).getCity().getName()
+                +" , "+ event.get_embedded().getVenues().get(0).getState().getName()
+                +" "+ event.get_embedded().getVenues().get(0).getPostalCode());
 
 
         for (int i = 0; i < event.getPriceRanges().size(); i++) {
@@ -109,7 +122,6 @@ public class EventDetailActivity extends AppCompatActivity {
         startActivity(intent);
 
     }
-
 
 
 }

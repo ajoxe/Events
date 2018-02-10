@@ -15,9 +15,9 @@
         android:id="@+id/dt_event_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:text="Event Name"
         android:textAllCaps="true"
-        android:layout_gravity="center"
         android:textColor="@android:color/black"
         android:textSize="17dp"
         android:textStyle="bold" />
@@ -28,63 +28,57 @@
         android:layout_height="178dp"
         android:padding="10dp" />
 
-    <!--<TextView-->
-        <!--android:id="@+id/details"-->
-        <!--android:text="Details:"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content" />-->
 
-<LinearLayout
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal">
-    <TextView
-        android:text="Date: "
-        android:layout_width="wrap_content"
-        android:textColor="@android:color/black"
-        android:layout_height="wrap_content" />
-    <TextView
-        android:id="@+id/event_date"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Date "
-        android:textColor="@android:color/black"
-        android:textSize="14sp"
-        android:textStyle="bold" />
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Date: "
+            android:textColor="@android:color/black" />
+
+        <TextView
+            android:id="@+id/event_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Date "
+            android:textColor="@android:color/black"
+            android:textSize="14sp"
+            android:textStyle="bold" />
 
 
-</LinearLayout>
+    </LinearLayout>
 
-<LinearLayout
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal">
-
-    <TextView
-        android:text="Time: "
+    <LinearLayout
         android:layout_width="wrap_content"
-        android:textColor="@android:color/black"
-        android:layout_height="wrap_content" />
-
-    <TextView
-        android:id="@+id/dt_event_time"
-        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="time"
-        android:textColor="@android:color/black"
-        android:textSize="14sp"
-        android:textStyle="bold" />
+        android:orientation="horizontal">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Time: "
+            android:textColor="@android:color/black" />
 
-</LinearLayout>
-
+        <TextView
+            android:id="@+id/dt_event_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="time"
+            android:textColor="@android:color/black"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+    </LinearLayout>
 
     <TextView
         android:id="@+id/dt_event_prices"
         android:layout_width="wrap_content"
-        android:textColor="@android:color/black"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_height="wrap_content" />
+        android:textColor="@android:color/black" />
 
 
     <ScrollView
@@ -98,30 +92,35 @@
             android:orientation="vertical">
 
 
-
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@android:color/black"
                 android:text="Venue:"
+                android:textColor="@android:color/black"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/dt_event_venue_name"
                 android:layout_width="match_parent"
-                android:textColor="@android:color/black"
                 android:layout_height="wrap_content"
                 android:text="Venue name"
+                android:textColor="@android:color/black"
                 android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/dt_addressline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="address line 1" />
 
             <TextView
                 android:id="@+id/dt_venue_link"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:clickable="true"
+                android:onClick="venueOnClick"
                 android:paddingBottom="10dp"
                 android:text="Link to Venue Details"
-                android:onClick="venueOnClick"
                 android:textColor="@android:color/holo_blue_light" />
 
             <TextView
@@ -130,8 +129,8 @@
                 android:layout_height="wrap_content"
                 android:clickable="true"
                 android:text="Check out the Seating Chart:"
-                android:textSize="15dp"
                 android:textColor="@android:color/black"
+                android:textSize="15dp"
                 android:textStyle="bold" />
 
             <TextView
@@ -141,8 +140,8 @@
                 android:clickable="true"
                 android:onClick="seatingChartOnClick"
                 android:paddingBottom="5dp"
-                android:textColor="@android:color/holo_blue_light"
-                android:text="Link to Seating Chart" />
+                android:text="Link to Seating Chart"
+                android:textColor="@android:color/holo_blue_light" />
 
 
         </LinearLayout>
@@ -162,3 +161,4 @@
 
 
 </LinearLayout>
+

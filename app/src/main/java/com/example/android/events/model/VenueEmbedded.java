@@ -7,6 +7,8 @@ import java.util.List;
  */
 
 public class VenueEmbedded {
+    private List<Venue> venues;
+    private List<Attractions> attractions;
 
     public List<Venue> getVenues() {
         return venues;
@@ -16,7 +18,15 @@ public class VenueEmbedded {
         this.venues = venues;
     }
 
-    private List<Venue> venues;
+
+
+    public List<Attractions> getAttractions() {
+        return attractions;
+    }
+
+    public void setAttractions(List<Attractions> attractions) {
+        this.attractions = attractions;
+    }
 
 
 
