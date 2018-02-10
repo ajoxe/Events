@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Events</string>
+    <string name="app_name">Evento</string>
     <string name="HOST">https://app.ticketmaster.com/</string>
     <string name="apiKey">ilPwBsnGTyoWc7GwITtkyAPPNMUOtqiS</string>
 </resources>
