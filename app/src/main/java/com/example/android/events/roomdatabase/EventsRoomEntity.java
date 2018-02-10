@@ -5,12 +5,18 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
+import android.arch.persistence.room.TypeConverters;
 
 
 import com.example.android.events.model.Classification;
 import com.example.android.events.model.Dates;
+import com.example.android.events.model.Images;
+import com.example.android.events.model.PriceRanges;
+import com.example.android.events.model.Products;
+import com.example.android.events.model.Seatmap;
 import com.example.android.events.model.Start;
 import com.example.android.events.model.Status;
+import com.example.android.events.model.VenueEmbedded;
 
 import java.lang.annotation.Annotation;
 import java.util.List;
@@ -26,6 +32,9 @@ public class EventsRoomEntity {
     private int uid;
 
     private String id;
+    private String status;
+    @Embedded
+    private Seatmap seatmap;
     private String seatmapImage;
     private String pleaseNote;
     private String info;
@@ -33,6 +42,8 @@ public class EventsRoomEntity {
     private String genre_id;
     private String segment__name;
     private String segment_id;
+    @Embedded
+    private Dates dates;
 
     private boolean date_spanMultipleDays;
     private String date_timezone;
@@ -53,7 +64,24 @@ public class EventsRoomEntity {
     private double price_min;
     private String price_currency;
     private String price_type;
+    @TypeConverters(DataConverter.class)
+    private List<Images> images;
+    @TypeConverters(DataConverter.class)
+    private List<Products> products;
+    @TypeConverters(DataConverter.class)
+    private List<PriceRanges> priceRanges;
+    @TypeConverters(DataConverter.class)
+    private List<Classification> classifications;
+    @TypeConverters(DataConverter.class)
+    private VenueEmbedded _embedded;
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
     public int getUid() {
         return uid;
@@ -71,7 +99,13 @@ public class EventsRoomEntity {
         this.id = id;
     }
 
+    public Seatmap getSeatmap() {
+        return seatmap;
+    }
 
+    public void setSeatmap(Seatmap seatmap) {
+        this.seatmap = seatmap;
+    }
 
     public String getSeatmapImage() {
         return seatmapImage;
@@ -129,6 +163,14 @@ public class EventsRoomEntity {
         this.segment_id = segment_id;
     }
 
+    public Dates getDates() {
+        return dates;
+    }
+
+    public void setDates(Dates dates) {
+        this.dates = dates;
+    }
+
     public boolean isDate_spanMultipleDays() {
         return date_spanMultipleDays;
     }
@@ -136,8 +178,6 @@ public class EventsRoomEntity {
     public void setDate_spanMultipleDays(boolean date_spanMultipleDays) {
         this.date_spanMultipleDays = date_spanMultipleDays;
     }
-
-
 
     public String getDate_timezone() {
         return date_timezone;
@@ -147,7 +187,61 @@ public class EventsRoomEntity {
         this.date_timezone = date_timezone;
     }
 
+    public boolean isDate_no_specific_time() {
+        return date_no_specific_time;
+    }
 
+    public void setDate_no_specific_time(boolean date_no_specific_time) {
+        this.date_no_specific_time = date_no_specific_time;
+    }
+
+    public boolean isDate_time_tba() {
+        return date_time_tba;
+    }
+
+    public void setDate_time_tba(boolean date_time_tba) {
+        this.date_time_tba = date_time_tba;
+    }
+
+    public boolean isDate_date_tba() {
+        return date_date_tba;
+    }
+
+    public void setDate_date_tba(boolean date_date_tba) {
+        this.date_date_tba = date_date_tba;
+    }
+
+    public boolean isDate_date_tbd() {
+        return date_date_tbd;
+    }
+
+    public void setDate_date_tbd(boolean date_date_tbd) {
+        this.date_date_tbd = date_date_tbd;
+    }
+
+    public String getDate_date_time() {
+        return date_date_time;
+    }
+
+    public void setDate_date_time(String date_date_time) {
+        this.date_date_time = date_date_time;
+    }
+
+    public String getDate_local_time() {
+        return date_local_time;
+    }
+
+    public void setDate_local_time(String date_local_time) {
+        this.date_local_time = date_local_time;
+    }
+
+    public String getDate_local_date() {
+        return date_local_date;
+    }
+
+    public void setDate_local_date(String date_local_date) {
+        this.date_local_date = date_local_date;
+    }
 
     public String getLocale() {
         return locale;
@@ -220,64 +314,44 @@ public class EventsRoomEntity {
     public void setPrice_type(String price_type) {
         this.price_type = price_type;
     }
-
-    public boolean isDate_no_specific_time() {
-        return date_no_specific_time;
+    @TypeConverters(DataConverter.class)
+    public List<Images> getImages() {
+        return images;
     }
 
-    public void setDate_no_specific_time(boolean date_no_specific_time) {
-        this.date_no_specific_time = date_no_specific_time;
+    public void setImages(List<Images> images) {
+        this.images = images;
+    }
+    @TypeConverters(DataConverter.class)
+    public List<Products> getProducts() {
+        return products;
     }
 
-    public boolean isDate_time_tba() {
-        return date_time_tba;
+    public void setProducts(List<Products> products) {
+        this.products = products;
+    }
+    @TypeConverters(DataConverter.class)
+    public List<PriceRanges> getPriceRanges() {
+        return priceRanges;
     }
 
-    public void setDate_time_tba(boolean date_time_tba) {
-        this.date_time_tba = date_time_tba;
+    public void setPriceRanges(List<PriceRanges> priceRanges) {
+        this.priceRanges = priceRanges;
+    }
+    @TypeConverters(DataConverter.class)
+    public List<Classification> getClassifications() {
+        return classifications;
     }
 
-    public boolean isDate_date_tba() {
-        return date_date_tba;
+    public void setClassifications(List<Classification> classifications) {
+        this.classifications = classifications;
+    }
+    @TypeConverters(DataConverter.class)
+    public VenueEmbedded get_embedded() {
+        return _embedded;
     }
 
-    public void setDate_date_tba(boolean date_date_tba) {
-        this.date_date_tba = date_date_tba;
+    public void set_embedded(VenueEmbedded _embedded) {
+        this._embedded = _embedded;
     }
-
-    public boolean isDate_date_tbd() {
-        return date_date_tbd;
-    }
-
-    public void setDate_date_tbd(boolean date_date_tbd) {
-        this.date_date_tbd = date_date_tbd;
-    }
-
-    public String getDate_date_time() {
-        return date_date_time;
-    }
-
-    public void setDate_date_time(String date_date_time) {
-        this.date_date_time = date_date_time;
-    }
-
-    public String getDate_local_time() {
-        return date_local_time;
-    }
-
-    public void setDate_local_time(String date_local_time) {
-        this.date_local_time = date_local_time;
-    }
-
-    public String getDate_local_date() {
-        return date_local_date;
-    }
-
-    public void setDate_local_date(String date_local_date) {
-        this.date_local_date = date_local_date;
-    }
-
-
-
-
 }

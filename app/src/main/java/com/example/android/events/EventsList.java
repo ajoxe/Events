@@ -4,14 +4,12 @@ package com.example.android.events;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
 import com.example.android.events.RetrofitInstance.RetroFitInstance;
 import com.example.android.events.controller.EventsAdapter;
-import com.example.android.events.model.Embedded;
 import com.example.android.events.model.EventWrapper;
 import com.example.android.events.model.Events;
 

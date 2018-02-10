@@ -1,0 +1,291 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "c1bcabba18a0f2a82f8f2b02b391f387",
+    "entities": [
+      {
+        "tableName": "events",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `id` TEXT, `status` TEXT, `seatmapImage` TEXT, `pleaseNote` TEXT, `info` TEXT, `genre_name` TEXT, `genre_id` TEXT, `segment__name` TEXT, `segment_id` TEXT, `date_spanMultipleDays` INTEGER NOT NULL, `date_timezone` TEXT, `date_no_specific_time` INTEGER NOT NULL, `date_time_tba` INTEGER NOT NULL, `date_date_tba` INTEGER NOT NULL, `date_date_tbd` INTEGER NOT NULL, `date_date_time` TEXT, `date_local_time` TEXT, `date_local_date` TEXT, `locale` TEXT, `url` TEXT, `type` TEXT, `name` TEXT, `TABLE_NAME` TEXT, `price_max` REAL NOT NULL, `price_min` REAL NOT NULL, `price_currency` TEXT, `price_type` TEXT, `images` TEXT, `products` TEXT, `priceRanges` TEXT, `classifications` TEXT, `_embedded` TEXT, `staticUrl` TEXT, `spanMultipleDays` INTEGER, `timezone` TEXT, `code` TEXT, `noSpecificTime` INTEGER, `timeTBA` INTEGER, `dateTBA` INTEGER, `dateTBD` INTEGER, `dateTime` TEXT, `localTime` TEXT, `localDate` TEXT)",
+        "fields": [
+          {
+            "fieldPath": "uid",
+            "columnName": "uid",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "status",
+            "columnName": "status",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "seatmapImage",
+            "columnName": "seatmapImage",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "pleaseNote",
+            "columnName": "pleaseNote",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "info",
+            "columnName": "info",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "genre_name",
+            "columnName": "genre_name",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "genre_id",
+            "columnName": "genre_id",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "segment__name",
+            "columnName": "segment__name",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "segment_id",
+            "columnName": "segment_id",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "date_spanMultipleDays",
+            "columnName": "date_spanMultipleDays",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "date_timezone",
+            "columnName": "date_timezone",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "date_no_specific_time",
+            "columnName": "date_no_specific_time",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "date_time_tba",
+            "columnName": "date_time_tba",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "date_date_tba",
+            "columnName": "date_date_tba",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "date_date_tbd",
+            "columnName": "date_date_tbd",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "date_date_time",
+            "columnName": "date_date_time",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "date_local_time",
+            "columnName": "date_local_time",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "date_local_date",
+            "columnName": "date_local_date",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "locale",
+            "columnName": "locale",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "url",
+            "columnName": "url",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "type",
+            "columnName": "type",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "TABLE_NAME",
+            "columnName": "TABLE_NAME",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "price_max",
+            "columnName": "price_max",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "price_min",
+            "columnName": "price_min",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "price_currency",
+            "columnName": "price_currency",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "price_type",
+            "columnName": "price_type",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "images",
+            "columnName": "images",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "products",
+            "columnName": "products",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "priceRanges",
+            "columnName": "priceRanges",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "classifications",
+            "columnName": "classifications",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "_embedded",
+            "columnName": "_embedded",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "seatmap.staticUrl",
+            "columnName": "staticUrl",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "dates.spanMultipleDays",
+            "columnName": "spanMultipleDays",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "dates.timezone",
+            "columnName": "timezone",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "dates.status.code",
+            "columnName": "code",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "dates.start.noSpecificTime",
+            "columnName": "noSpecificTime",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "dates.start.timeTBA",
+            "columnName": "timeTBA",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "dates.start.dateTBA",
+            "columnName": "dateTBA",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "dates.start.dateTBD",
+            "columnName": "dateTBD",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "dates.start.dateTime",
+            "columnName": "dateTime",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "dates.start.localTime",
+            "columnName": "localTime",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "dates.start.localDate",
+            "columnName": "localDate",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "uid"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"c1bcabba18a0f2a82f8f2b02b391f387\")"
+    ]
+  }
+}

@@ -16,9 +16,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static android.content.ContentValues.TAG;
-import static java.util.Collections.addAll;
-
 /**
  * Created by amirahoxendine on 2/5/18.
  */

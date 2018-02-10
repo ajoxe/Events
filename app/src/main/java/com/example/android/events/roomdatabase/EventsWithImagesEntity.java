@@ -13,15 +13,15 @@ import java.util.List;
 
 public class EventsWithImagesEntity {
     @Embedded
-    EventsRoomEntity event;
+    Events event;
     @Relation(parentColumn = "id", entityColumn = "eventID", entity = ImageRoomEntity.class)
     private List<ImageRoomEntity> images;
 
-    public EventsRoomEntity getEvent() {
+    public Events getEvent() {
         return event;
     }
 
-    public void setEvent(EventsRoomEntity event) {
+    public void setEvent(Events event) {
         this.event = event;
     }
 
