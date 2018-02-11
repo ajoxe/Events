@@ -40,6 +40,7 @@ public class EventDetailActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_event_detail);
         event = DatabaseInitializer.event;
         setViews();
@@ -66,6 +67,7 @@ public class EventDetailActivity extends AppCompatActivity {
     public void dataBinding() {
 
         event_name.setText(event.getName());
+
         event_venue_name.setText(event.get_embedded().getVenues().get(0).getName());
 
 
@@ -107,7 +109,8 @@ public class EventDetailActivity extends AppCompatActivity {
     }
 
     public void seatingChartOnClick(View view) {
-        Uri uri = Uri.parse(event.getSeatmap().getStaticUrl()); // missing 'http://' will cause crashed
+        Uri uri = Uri.parse(event.getSeatmap().getStaticUrl());
+
         Intent intent = new Intent(Intent.ACTION_VIEW, uri);
         startActivity(intent);
 

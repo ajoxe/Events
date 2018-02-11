@@ -12,6 +12,9 @@ public class Classification {
     private Classification_Genre genre;
     private Classification_Segment segment;
 
+    public Classification() {
+    }
+
     public Classification_Genre getGenre() {
         return genre;
     }

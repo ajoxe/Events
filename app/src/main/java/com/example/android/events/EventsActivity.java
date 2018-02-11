@@ -32,33 +32,51 @@ import retrofit2.Response;
  */
 
 public class EventsActivity extends AppCompatActivity {
+
     List<Events> events = DatabaseInitializer.eventsQuery;
+
     public String TAG = EventsActivity.class.getSimpleName();
+
     EventsRoomDataUtility eventUtility = new EventsRoomDataUtility();
+
     RecyclerView recyclerView;
+
     EventsAdapter eventsAdapter;
+
     View.OnClickListener infoClick;
+
     View.OnClickListener saveCheckboxClick;
+
     Context context;
 
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.list_events);
+
         context = getApplicationContext();
 
         setRecyclerView();
     }
 
     public void setRecyclerView(){
+
         recyclerView = findViewById(R.id.rec_view);
+
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
+
         recyclerView.setLayoutManager(linearLayoutManager);
+
         setInfoClick();
+
         setSaveCheckboxClick();
+
         Log.d("DB TEST", "list size" + events.size());
+
         eventsAdapter= new EventsAdapter(events, getApplicationContext(), infoClick, saveCheckboxClick);
+
         recyclerView.setAdapter(eventsAdapter);
     }
 

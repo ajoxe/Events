@@ -12,6 +12,9 @@ public class Classification_Genre {
     private String name;
     private String id;
 
+    public Classification_Genre() {
+    }
+
     public String getName() {
         return name;
     }

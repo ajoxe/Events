@@ -1,6 +1,7 @@
 package com.example.android.events.datautil;
 
 import com.example.android.events.model.PriceRanges;
+import com.example.android.events.model.Venue;
 
 import java.text.DateFormat;
 import java.text.Format;
@@ -18,6 +19,24 @@ import java.util.TimeZone;
 public class DataUtility {
 
 
+    // fields: for the venue data utitlity:
+    private String venueName;
+    /**
+     * this method will parse the venue:
+     * @param
+     * @param
+     * @return
+     */
+    public String parseVenue(){
+
+        Venue getVenue = new Venue();
+
+        venueName = getVenue.getName();
+
+
+        return venueName;
+
+    }
     public String parseTime(String time,String timeZone) {
         TimeZone utc = TimeZone.getTimeZone(timeZone);
         DateFormat inputFormat = new SimpleDateFormat("HH:mm",
@@ -38,6 +57,8 @@ public class DataUtility {
         String output = outputFormat.format(date);
         return output;
     }
+
+
 
 
 

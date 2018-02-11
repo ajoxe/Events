@@ -32,6 +32,11 @@ public class Venue {
     private String type;
     private String name;
 
+    public Venue() {
+    }
+
+
+
     public _links get_links() {
         return _links;
     }

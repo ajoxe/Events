@@ -28,11 +28,17 @@ public class Events {
     private VenueEmbedded _embedded;
 
 
+    // another field to access the venue:
+    private List<Venue> venue;
+
+
+
+
     public Events(){
 
     }
 
-    public Events(Seatmap seatmap, List<Products> products, List<PriceRanges> priceRanges, String pleaseNote, String info, List<Classification> classifications, Dates dates, List<Images> images, String locale, String url, String id, String type, String name, VenueEmbedded _embedded) {
+    public Events(Seatmap seatmap, List<Products> products, List<PriceRanges> priceRanges, String pleaseNote, String info, List<Classification> classifications, Dates dates, List<Images> images, String locale, String url, String id, String type, String name, VenueEmbedded _embedded,List<Venue> venue) {
         this.seatmap = seatmap;
         this.products = products;
         this.priceRanges = priceRanges;
@@ -47,7 +53,18 @@ public class Events {
         this.type = type;
         this.name = name;
         this._embedded = _embedded;
+        this.venue = venue;
     }
+
+    // getter + setter for venue:
+    public List<Venue> getVenue() {
+        return venue;
+    }
+
+    public void setVenue(List<Venue> venue) {
+        this.venue = venue;
+    }
+
 
     public VenueEmbedded get_embedded() {
         return _embedded;

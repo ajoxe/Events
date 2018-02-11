@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- -->
+    <!-- IDS: for EVENTS_ITEMVIEW.XML: -->
+    <id name="venue" type="id"> this is the venue text view id </id>
+    <id name="genre" type="id"> this is the genre text view id </id>
+
+
+
+</resources>
